@@ -24,7 +24,6 @@ public class FoodRecommendAppApplication {
 			repository.save(new Cuisine("Japanese"));
 			repository.save(new Cuisine("Indonesian"));
 			repository.save(new Cuisine("Colombian"));
-			repository.save(new Cuisine("Mexican"));
 			repository.save(new Cuisine("Turkish"));
 		};
 	
