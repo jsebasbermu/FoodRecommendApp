@@ -19,6 +19,9 @@ public class Mood {
 	 @Column(name = "mood_name")
 	 private String moodName;
 	 
+	 @Column(name = "mood_description")
+	 private String moodDescription;
+	 
 	 @OneToMany(mappedBy = "mood")
 	 private List<UserPreferences> userPreferences;
 
@@ -32,9 +35,10 @@ public class Mood {
 	 
 
 	// Parameterized constructor
-	public Mood(String moodName) {
+	public Mood(String moodName, String moodDescription) {
 		super();
 		this.moodName = moodName;
+		this.moodDescription = moodDescription;
 	}
 
 	// Getter and Setter methods
