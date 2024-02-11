@@ -7,8 +7,10 @@ import org.springframework.context.annotation.Bean;
 
 import com.example.foodapp.model.Cuisine;
 import com.example.foodapp.model.Mood;
+import com.example.foodapp.model.User;
 import com.example.foodapp.repositories.CuisineRepository;
 import com.example.foodapp.repositories.MoodRepository;
+import com.example.foodapp.repositories.UserRepository;
 
 @SpringBootApplication
 public class FoodRecommendAppApplication {
@@ -18,7 +20,7 @@ public class FoodRecommendAppApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(CuisineRepository cuisineRepository , MoodRepository moodRepository) {
+	ApplicationRunner init(CuisineRepository cuisineRepository , MoodRepository moodRepository, UserRepository userRepository) {
 		return args -> {
 			cuisineRepository.save(new Cuisine("Korean"));
 			cuisineRepository.save(new Cuisine("Thai"));
@@ -43,6 +45,16 @@ public class FoodRecommendAppApplication {
 					+ "often associated with special occasions or positive events."));
 			moodRepository.save(new Mood("Loved", "Experiencing a deep affection and connection with others, "
 					+ "often associated with feelings of warmth and care."));
-		};
+		
+			//Test adding users
+			userRepository.save(new User("Sebastian Bermudez", "seb123456"));		
+			userRepository.save(new User("Russell", "rus678_99"));		
+			userRepository.save(new User("Burak", "burak12974_"));		
+			userRepository.save(new User("Valentina Alvarez", "Valen12345_"));		
+
+		} ;
+		
+		
+		
 	}
 }

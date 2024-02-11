@@ -18,6 +18,7 @@ import com.example.foodapp.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/api")
+
 public class UserController {
 	
 	@Autowired
