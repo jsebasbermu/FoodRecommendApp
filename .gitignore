@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+bin/src/main/java/com/example/foodapp/controllers/CuisineController.class
+bin/src/main/java/com/example/foodapp/controllers/DishController.class
+bin/src/main/java/com/example/foodapp/controllers/MoodController.class
+bin/src/main/java/com/example/foodapp/controllers/UserController.class
+bin/src/main/java/com/example/foodapp/FoodRecommendAppApplication.class
+bin/src/main/java/com/example/foodapp/model/Cuisine.class
+bin/src/main/java/com/example/foodapp/model/Dish.class
+bin/src/main/java/com/example/foodapp/model/Mood.class
+bin/src/main/java/com/example/foodapp/model/User.class
+bin/src/main/java/com/example/foodapp/model/UserPreferences.class
+bin/src/main/java/com/example/foodapp/repositories/CuisineRepository.class
+bin/src/main/java/com/example/foodapp/repositories/DishRepository.class
+bin/src/main/java/com/example/foodapp/repositories/MoodRepository.class
+bin/src/main/java/com/example/foodapp/repositories/UserRepository.class
+bin/src/test/java/com/example/foodapp/FoodRecommendAppApplicationTests.class
