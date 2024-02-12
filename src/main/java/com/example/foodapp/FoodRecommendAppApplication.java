@@ -53,7 +53,7 @@ public class FoodRecommendAppApplication {
 			userRepository.save(new User("Russell", "rus678_99"));		
 			userRepository.save(new User("Burak", "burak12974_"));		
 			userRepository.save(new User("Valentina Alvarez", "Valen12345_"));		
-
+			// new comment test
 		} ;
 		
 		
