@@ -23,7 +23,7 @@ public class DishController {
 	DishRepository dishRepository;
 	
 	@GetMapping("/dishes")
-	public ResponseEntity<List<Dish>> getAllCuisines(@RequestParam(required = false) String dishName) {
+	public ResponseEntity<List<Dish>> getAllDishes(@RequestParam(required = false) String dishName) {
 		try {
 			List<Dish> dishes = new ArrayList<Dish>();
 

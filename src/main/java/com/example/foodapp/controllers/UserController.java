@@ -25,7 +25,7 @@ public class UserController {
 	UserRepository userRepository;
 	
 	@GetMapping("/users")
-	public ResponseEntity<List<User>> getAllCuisines(@RequestParam(required = false) String userName) {
+	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String userName) {
 		try {
 			List<User> users = new ArrayList<User>();
 

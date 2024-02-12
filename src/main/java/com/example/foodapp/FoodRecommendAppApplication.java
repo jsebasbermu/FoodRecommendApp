@@ -9,6 +9,7 @@ import com.example.foodapp.model.Cuisine;
 import com.example.foodapp.model.Mood;
 import com.example.foodapp.model.User;
 import com.example.foodapp.repositories.CuisineRepository;
+import com.example.foodapp.repositories.DishRepository;
 import com.example.foodapp.repositories.MoodRepository;
 import com.example.foodapp.repositories.UserRepository;
 
@@ -20,7 +21,8 @@ public class FoodRecommendAppApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(CuisineRepository cuisineRepository , MoodRepository moodRepository, UserRepository userRepository) {
+	ApplicationRunner init(CuisineRepository cuisineRepository , MoodRepository moodRepository, 
+			UserRepository userRepository, DishRepository dishRepository) {
 		return args -> {
 			cuisineRepository.save(new Cuisine("Korean"));
 			cuisineRepository.save(new Cuisine("Thai"));
