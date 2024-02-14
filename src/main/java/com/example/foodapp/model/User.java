@@ -29,7 +29,20 @@ public class User {
     	
     }
     
-    // Parameterized constructor
+    
+    
+    public List<UserPreferences> getUserPreferences() {
+		return userPreferences;
+	}
+
+
+	public void setUserPreferences(List<UserPreferences> userPreferences) {
+		this.userPreferences = userPreferences;
+	}
+
+
+
+	// Parameterized constructor
 	public User(String username, String password) {
 		super();
 		this.userName = username;
