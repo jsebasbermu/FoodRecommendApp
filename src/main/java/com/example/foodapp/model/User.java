@@ -30,7 +30,6 @@ public class User {
     }
     
     
-    
     public List<UserPreferences> getUserPreferences() {
 		return userPreferences;
 	}
