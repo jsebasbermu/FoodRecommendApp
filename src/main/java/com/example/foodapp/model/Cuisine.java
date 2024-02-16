@@ -2,8 +2,12 @@ package com.example.foodapp.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,10 +25,12 @@ public class Cuisine {
 	@Column(name = "cuisine_name")
     private String cuisineName;
     
-    @OneToMany(mappedBy = "cuisine")
+    @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<UserPreferences> userPreferences;
 
-    @OneToMany(mappedBy = "cuisine")
+    @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Dish> dishes;
     
     // Default constructor
@@ -52,7 +58,21 @@ public class Cuisine {
 	public void setCuisineName(String cuisineName) {
 		this.cuisineName = cuisineName;
 	}
-    
-	
+
+	public List<UserPreferences> getUserPreferences() {
+		return userPreferences;
+	}
+
+	public void setUserPreferences(List<UserPreferences> userPreferences) {
+		this.userPreferences = userPreferences;
+	}
+
+	public List<Dish> getDishes() {
+		return dishes;
+	}
+
+	public void setDishes(List<Dish> dishes) {
+		this.dishes = dishes;
+	}
     
 }
