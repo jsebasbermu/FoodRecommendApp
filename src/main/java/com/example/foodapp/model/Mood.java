@@ -1,9 +1,13 @@
 package com.example.foodapp.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,11 +26,11 @@ public class Mood {
 	 @Column(name = "mood_description")
 	 private String moodDescription;
 	 
-	 @OneToMany(mappedBy = "mood")
-	 private List<UserPreferences> userPreferences;
+	 @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 private Set<UserPreferences> userPreferences = new HashSet<>();
 
-	 @OneToMany(mappedBy = "mood")
-	 private List<Dish> dishes;
+	 @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 private Set<Dish> dishes = new HashSet<>();
 	 
 	 // Default Constructor
 	 public Mood() {
@@ -41,6 +45,16 @@ public class Mood {
 		this.moodDescription = moodDescription;
 	}
 
+	public void addDish(Dish dish) {
+		this.dishes.add(dish);
+		dish.setMood(this);
+	}
+	
+	public void addUserPreference(UserPreferences preference) {
+		this.userPreferences.add(preference);
+		preference.setMood(this);
+	}
+	
 	// Getter and Setter methods
 	public Long getMoodId() {
 		return moodId;

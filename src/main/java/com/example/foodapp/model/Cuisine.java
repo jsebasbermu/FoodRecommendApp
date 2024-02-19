@@ -1,6 +1,8 @@
 package com.example.foodapp.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,11 +29,11 @@ public class Cuisine {
     
     @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<UserPreferences> userPreferences;
+    private Set<UserPreferences> userPreferences = new HashSet<>();
 
     @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Dish> dishes;
+    private Set<Dish> dishes = new HashSet<>();
     
     // Default constructor
     public Cuisine() {
@@ -42,6 +44,18 @@ public class Cuisine {
 	public Cuisine(String cuisineName) {
 		super();
 		this.cuisineName = cuisineName;
+	}
+	
+	// Method to add a dish to the cuisine
+	
+	public void addDish(Dish dish) {
+		this.dishes.add(dish);
+		dish.setCuisine(this);
+	}
+	
+	public void addUserPreference(UserPreferences preference) {
+		this.userPreferences.add(preference);
+		preference.setCuisine(this);
 	}
 	
 	// Getters and Setters methods
@@ -59,20 +73,21 @@ public class Cuisine {
 		this.cuisineName = cuisineName;
 	}
 
-	public List<UserPreferences> getUserPreferences() {
+	public Set<UserPreferences> getUserPreferences() {
 		return userPreferences;
 	}
 
-	public void setUserPreferences(List<UserPreferences> userPreferences) {
+	public void setUserPreferences(Set<UserPreferences> userPreferences) {
 		this.userPreferences = userPreferences;
 	}
 
-	public List<Dish> getDishes() {
+	public Set<Dish> getDishes() {
 		return dishes;
 	}
 
-	public void setDishes(List<Dish> dishes) {
+	public void setDishes(Set<Dish> dishes) {
 		this.dishes = dishes;
 	}
+
     
 }
