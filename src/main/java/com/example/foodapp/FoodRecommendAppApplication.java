@@ -10,11 +10,15 @@ import org.springframework.context.annotation.Bean;
 import com.example.foodapp.model.Cuisine;
 import com.example.foodapp.model.Dish;
 import com.example.foodapp.model.Mood;
+import com.example.foodapp.model.Recipes;
 import com.example.foodapp.model.User;
+import com.example.foodapp.model.UserFavorites;
 import com.example.foodapp.model.UserPreferences;
 import com.example.foodapp.repositories.CuisineRepository;
 import com.example.foodapp.repositories.DishRepository;
+import com.example.foodapp.repositories.FavoritesRepository;
 import com.example.foodapp.repositories.MoodRepository;
+import com.example.foodapp.repositories.RecipesRepository;
 import com.example.foodapp.repositories.UserPreferencesRepository;
 import com.example.foodapp.repositories.UserRepository;
 
@@ -28,7 +32,8 @@ public class FoodRecommendAppApplication {
 	@Bean
 	ApplicationRunner init(CuisineRepository cuisineRepository, MoodRepository moodRepository,
 			UserRepository userRepository, DishRepository dishRepository, 
-			UserPreferencesRepository preferencesRepository) {
+			UserPreferencesRepository preferencesRepository, RecipesRepository recipesRepository,
+			FavoritesRepository favoritesRepository) {
 		return args -> {
 			
 			// List of cuisines
@@ -168,6 +173,68 @@ public class FoodRecommendAppApplication {
 
 			preferencesRepository.saveAll(preferences);
 			dishRepository.saveAll(dishes);
+			
+			// List of recipes
+			
+			ArrayList<Recipes> recipes = new ArrayList<>();
+			recipes.add(new Recipes("Bibibamp instructions"));
+			recipes.add(new Recipes("Pad Thai instructions"));
+			recipes.add(new Recipes("Pho instructions"));
+			recipes.add(new Recipes("Sushi instructions"));
+			recipes.add(new Recipes("Nasi Goreng instructions"));
+			recipes.add(new Recipes("Chicken rice instructions"));
+			recipes.add(new Recipes("Manti instructions"));
+			
+			// Adding a dish to each of the recipes
+			
+			dishes.get(0).addRecipe(recipes.get(0));
+			dishes.get(1).addRecipe(recipes.get(1));
+			dishes.get(2).addRecipe(recipes.get(2));
+			dishes.get(3).addRecipe(recipes.get(3));
+			dishes.get(4).addRecipe(recipes.get(4));
+			dishes.get(5).addRecipe(recipes.get(5));
+			dishes.get(6).addRecipe(recipes.get(6));
+
+			recipesRepository.saveAll(recipes);
+			
+			
+			// List of user favorites record
+			
+			ArrayList<UserFavorites> favorites = new ArrayList<>();
+			
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			favorites.add(new UserFavorites());
+			
+			// Adding an user to user favorites record
+			
+			users.get(0).addFavorite(favorites.get(0));
+			users.get(1).addFavorite(favorites.get(1));
+			users.get(2).addFavorite(favorites.get(2));
+			users.get(2).addFavorite(favorites.get(3));
+			users.get(0).addFavorite(favorites.get(4));
+			users.get(1).addFavorite(favorites.get(5));
+			users.get(1).addFavorite(favorites.get(6));
+			users.get(1).addFavorite(favorites.get(7));
+			
+			// Adding a dish to each user favorite record
+			
+			dishes.get(0).addFavorite(favorites.get(0));
+			dishes.get(1).addFavorite(favorites.get(1));
+			dishes.get(2).addFavorite(favorites.get(2));
+			dishes.get(2).addFavorite(favorites.get(3));
+			dishes.get(3).addFavorite(favorites.get(4));
+			dishes.get(4).addFavorite(favorites.get(5));
+			dishes.get(5).addFavorite(favorites.get(6));
+			dishes.get(6).addFavorite(favorites.get(7));
+			
+			favoritesRepository.saveAll(favorites);
+			
 		};
 
 	}

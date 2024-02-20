@@ -28,6 +28,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPreferences> userPreferences = new HashSet<>();
     
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserFavorites> userFavorites = new HashSet<>();
+    
     // Default constructor
     public User() {
     	
@@ -43,6 +46,11 @@ public class User {
 	public void addUserPreference(UserPreferences preference) {
 		this.userPreferences.add(preference);
 		preference.setUser(this);
+	}
+	
+	public void addFavorite(UserFavorites favorites1) {
+		this.userFavorites.add(favorites1);
+		favorites1.setUser(this);
 	}
 
 	// Getters and Setters methods
