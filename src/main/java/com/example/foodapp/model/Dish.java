@@ -3,6 +3,8 @@ package com.example.foodapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,9 +42,11 @@ public class Dish {
     private Cuisine cuisine;
     
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
 	private Set<Recipes> recipes = new HashSet<>();
     
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
 	private Set<UserFavorites> favorites = new HashSet<>();
     
     // Default Constructor

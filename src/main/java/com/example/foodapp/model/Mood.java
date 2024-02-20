@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,9 +29,11 @@ public class Mood {
 	 private String moodDescription;
 	 
 	 @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 @JsonIgnore
 	 private Set<UserPreferences> userPreferences = new HashSet<>();
 
 	 @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 @JsonIgnore
 	 private Set<Dish> dishes = new HashSet<>();
 	 
 	 // Default Constructor

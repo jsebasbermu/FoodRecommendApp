@@ -8,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.foodapp.model.Recipes;
+import com.example.foodapp.model.User;
 import com.example.foodapp.repositories.RecipesRepository;
+import com.example.foodapp.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -21,16 +24,17 @@ public class RecipesController {
 	
 	@GetMapping("/recipes")
 	public ResponseEntity<List<Recipes>> getAllRecipes() {
-		
 		try {
-			List<Recipes> recipes1 = new ArrayList<Recipes>();
+			List<Recipes> recipes = new ArrayList<Recipes>();
 			
-			recipesRepository.findAll().forEach(recipes1::add);
-			return new ResponseEntity<>(recipes1, HttpStatus.OK);
+			recipesRepository.findAll().forEach(recipes::add);
+			
+			return new ResponseEntity<>(recipes, HttpStatus.OK);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
+	
 }

@@ -20,7 +20,7 @@ public class UserFavoritesController {
 	@Autowired
 	FavoritesRepository favoritesRepository;
 	
-	@GetMapping("/userfavorites")
+	@GetMapping("/favorites")
 	public ResponseEntity<List<UserFavorites>> getAllFavorites() {
 		
 		try {
