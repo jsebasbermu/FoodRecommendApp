@@ -69,6 +69,33 @@ public class Mood {
 	public void setMoodName(String moodName) {
 		this.moodName = moodName;
 	}
+
+
+	public String getMoodDescription() {
+		return moodDescription;
+	}
+
+
+	public void setMoodDescription(String moodDescription) {
+		this.moodDescription = moodDescription;
+	}
+
+
+	public Set<UserPreferences> getUserPreferences() {
+		return userPreferences;
+	}
+	public void setUserPreferences(Set<UserPreferences> userPreferences) {
+		this.userPreferences = userPreferences;
+	}
+
+
+	public Set<Dish> getDishes() {
+		return dishes;
+	}
+
+	public void setDishes(Set<Dish> dishes) {
+		this.dishes = dishes;
+	}
 	
 	
 	 

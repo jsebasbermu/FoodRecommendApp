@@ -2,16 +2,21 @@ package com.example.foodapp.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.example.foodapp.model.*;
+import com.example.foodapp.model.Dish;
 import com.example.foodapp.model.Mood;
+import com.example.foodapp.repositories.DishService;
 import com.example.foodapp.repositories.MoodRepository;
 
 @RestController
@@ -20,6 +25,8 @@ public class MoodController {
 	
 	@Autowired
 	MoodRepository moodRepository;
+	@Autowired
+    private DishService dishService;
 	
 	@GetMapping("/moods")
 	public ResponseEntity<List<Mood>> getAllMoods(@RequestParam(required = false) String moodName) {
@@ -40,4 +47,22 @@ public class MoodController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/moods/{id}")
+    public ResponseEntity<Mood> getMoodsByMoodId(@PathVariable("id") Long id) {
+        Optional<Mood> moods = moodRepository.findById(id);
+        if(moods.isPresent()) {
+			// Status okay is the course is found
+			return new ResponseEntity<>(moods.get(), HttpStatus.OK);
+		}
+		// status no content if it is not found the course.
+		return new ResponseEntity<>(moods.get(), HttpStatus.NO_CONTENT);
+    }
+	
+	@GetMapping("/moods/{moodName}/dishes")
+    public ResponseEntity<List<Dish>> getDishesByMood(@PathVariable("moodName") String moodName,
+    		@RequestBody Dish dish ) {
+        List<Dish> dishes = dishService.getDishesByMoodName(moodName);
+        return new ResponseEntity<>(dishes, HttpStatus.OK);
+    }
 }

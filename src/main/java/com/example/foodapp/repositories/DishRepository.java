@@ -15,5 +15,6 @@ public interface DishRepository extends JpaRepository<Dish, Long>{
     List<Dish> findByMood_MoodName(String moodName);
     
     List<Dish> findByIngredients(String ingredients);
+    
 
 }
