@@ -22,6 +22,8 @@ public class CuisineController {
 	@Autowired
 	CuisineRepository cuisineRepository;
 	
+	
+	
 	@GetMapping("/cuisines")
 	public ResponseEntity<List<Cuisine>> getAllCuisines(@RequestParam(required = false) String cuisineName) {
 		try {
@@ -41,4 +43,6 @@ public class CuisineController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	
 }
