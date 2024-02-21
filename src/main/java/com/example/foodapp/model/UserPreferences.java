@@ -1,6 +1,9 @@
 package com.example.foodapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,11 +22,11 @@ public class UserPreferences {
     @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "mood_id", nullable = false)
 	private Mood mood;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "cuisine_id", nullable = false)
 	private Cuisine cuisine;
 
@@ -47,8 +50,30 @@ public class UserPreferences {
 	public void setUserPreferencesId(Long userPreferencesId) {
 		this.userPreferencesId = userPreferencesId;
 	}
-	
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Mood getMood() {
+		return mood;
+	}
+
+	public void setMood(Mood mood) {
+		this.mood = mood;
+	}
+
+	public Cuisine getCuisine() {
+		return cuisine;
+	}
+
+	public void setCuisine(Cuisine cuisine) {
+		this.cuisine = cuisine;
+	}
 	
 	
 }

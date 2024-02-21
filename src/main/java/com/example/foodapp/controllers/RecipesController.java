@@ -11,34 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.example.foodapp.model.Dish;
-import com.example.foodapp.repositories.DishRepository;
+import com.example.foodapp.model.Recipes;
+import com.example.foodapp.model.User;
+import com.example.foodapp.repositories.RecipesRepository;
+import com.example.foodapp.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/api")
-public class DishController {
-	
+public class RecipesController {
 	@Autowired
-	DishRepository dishRepository;
+	RecipesRepository recipesRepository;
 	
-	@GetMapping("/dishes")
-	public ResponseEntity<List<Dish>> getAllDishes(@RequestParam(required = false) String dishName) {
+	@GetMapping("/recipes")
+	public ResponseEntity<List<Recipes>> getAllRecipes() {
 		try {
-			List<Dish> dishes = new ArrayList<Dish>();
+			List<Recipes> recipes = new ArrayList<Recipes>();
+			
+			recipesRepository.findAll().forEach(recipes::add);
+			
+			return new ResponseEntity<>(recipes, HttpStatus.OK);
 
-			if (dishName == null)
-				dishRepository.findAll().forEach(dishes::add);
-			else //findBy
-				dishRepository.findByDishName(dishName).forEach(dishes::add);
-
-			if (dishes.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(dishes, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
 
+	}
+	
 }

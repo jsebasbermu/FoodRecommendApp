@@ -1,9 +1,15 @@
 package com.example.foodapp.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,8 +27,13 @@ public class User {
 	@Column(name = "password")
     private String passWord;
     
-    @OneToMany(mappedBy = "user")
-    private List<UserPreferences> userPreferences;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<UserPreferences> userPreferences = new HashSet<>();
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<UserFavorites> userFavorites = new HashSet<>();
     
     // Default constructor
     public User() {
@@ -46,6 +57,16 @@ public class User {
 		super();
 		this.userName = username;
 		this.passWord = password;
+	}
+	
+	public void addUserPreference(UserPreferences preference) {
+		this.userPreferences.add(preference);
+		preference.setUser(this);
+	}
+	
+	public void addFavorite(UserFavorites favorites1) {
+		this.userFavorites.add(favorites1);
+		favorites1.setUser(this);
 	}
 
 	// Getters and Setters methods

@@ -1,9 +1,15 @@
 package com.example.foodapp.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,11 +28,13 @@ public class Mood {
 	 @Column(name = "mood_description")
 	 private String moodDescription;
 	 
-	 @OneToMany(mappedBy = "mood")
-	 private List<UserPreferences> userPreferences;
+	 @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 @JsonIgnore
+	 private Set<UserPreferences> userPreferences = new HashSet<>();
 
-	 @OneToMany(mappedBy = "mood")
-	 private List<Dish> dishes;
+	 @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 @JsonIgnore
+	 private Set<Dish> dishes = new HashSet<>();
 	 
 	 // Default Constructor
 	 public Mood() {
@@ -41,6 +49,16 @@ public class Mood {
 		this.moodDescription = moodDescription;
 	}
 
+	public void addDish(Dish dish) {
+		this.dishes.add(dish);
+		dish.setMood(this);
+	}
+	
+	public void addUserPreference(UserPreferences preference) {
+		this.userPreferences.add(preference);
+		preference.setMood(this);
+	}
+	
 	// Getter and Setter methods
 	public Long getMoodId() {
 		return moodId;
@@ -54,6 +72,33 @@ public class Mood {
 	}
 	public void setMoodName(String moodName) {
 		this.moodName = moodName;
+	}
+
+
+	public String getMoodDescription() {
+		return moodDescription;
+	}
+
+
+	public void setMoodDescription(String moodDescription) {
+		this.moodDescription = moodDescription;
+	}
+
+
+	public Set<UserPreferences> getUserPreferences() {
+		return userPreferences;
+	}
+	public void setUserPreferences(Set<UserPreferences> userPreferences) {
+		this.userPreferences = userPreferences;
+	}
+
+
+	public Set<Dish> getDishes() {
+		return dishes;
+	}
+
+	public void setDishes(Set<Dish> dishes) {
+		this.dishes = dishes;
 	}
 	
 	
