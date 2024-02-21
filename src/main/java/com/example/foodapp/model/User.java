@@ -41,17 +41,15 @@ public class User {
     }
     
     
-    public List<UserPreferences> getUserPreferences() {
+	public Set<UserPreferences> getUserPreferences() {
 		return userPreferences;
 	}
 
-
-	public void setUserPreferences(List<UserPreferences> userPreferences) {
+	public void setUserPreferences(Set<UserPreferences> userPreferences) {
 		this.userPreferences = userPreferences;
 	}
 
-
-
+	
 	// Parameterized constructor
 	public User(String username, String password) {
 		super();
