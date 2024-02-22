@@ -2,18 +2,22 @@ package com.example.foodapp.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.example.foodapp.model.Dish;
+import com.example.foodapp.model.Recipes;
 import com.example.foodapp.repositories.DishRepository;
+import com.example.foodapp.repositories.DishService;
 
 @RestController
 @RequestMapping("/api")
@@ -40,5 +44,14 @@ public class DishController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@Autowired
+    private DishService dishService;
+
+    @GetMapping("/dishes/{dishId}/recipes")
+    public ResponseEntity<Set<Recipes>> getRecipeByDish(@PathVariable Long dishId) {
+        Set<Recipes> recipe = dishService.getRecipeByDish(dishId);
+        return ResponseEntity.ok(recipe);
+    }
 
 }

@@ -2,18 +2,21 @@ package com.example.foodapp.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.foodapp.model.Cuisine;
+import com.example.foodapp.model.Dish;
 import com.example.foodapp.repositories.CuisineRepository;
-
+import com.example.foodapp.repositories.CuisineService;
 
 @RestController
 @RequestMapping("/api")
@@ -21,9 +24,7 @@ public class CuisineController {
 
 	@Autowired
 	CuisineRepository cuisineRepository;
-	
-	
-	
+
 	@GetMapping("/cuisines")
 	public ResponseEntity<List<Cuisine>> getAllCuisines(@RequestParam(required = false) String cuisineName) {
 		try {
@@ -31,7 +32,7 @@ public class CuisineController {
 
 			if (cuisineName == null)
 				cuisineRepository.findAll().forEach(cuisines::add);
-			else //findBy
+			else // findBy
 				cuisineRepository.findByCuisineName(cuisineName).forEach(cuisines::add);
 
 			if (cuisines.isEmpty()) {
@@ -43,6 +44,14 @@ public class CuisineController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
+	@Autowired
+	private CuisineService cuisineService;
+
+	@GetMapping("/cuisines/{cuisineId}/dishes")
+	public ResponseEntity<Set<Dish>> getDishesByCuisine(@PathVariable Long cuisineId) {
+		Set<Dish> dishes = cuisineService.getDishesByCuisine(cuisineId);
+		return ResponseEntity.ok(dishes);
+	}
+
 }

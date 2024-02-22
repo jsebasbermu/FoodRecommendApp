@@ -25,7 +25,7 @@ public class UserPreferencesController {
 	@Autowired
 	UserPreferencesRepository preferencesRepository;
 	
-	@GetMapping("/preferences")
+	@GetMapping("/userpreferences")
 	public ResponseEntity<List<UserPreferences>> getAllPreferences() {
 		
 		try {

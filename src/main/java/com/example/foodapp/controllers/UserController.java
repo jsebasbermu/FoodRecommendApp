@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.foodapp.model.User;
+import com.example.foodapp.model.UserFavorites;
+import com.example.foodapp.repositories.FavoritesService;
 import com.example.foodapp.repositories.UserRepository;
 
 
@@ -43,5 +47,18 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@Autowired
+    private FavoritesService favoritesService;
+	@PostMapping("users/{userId}/userfavorites")
+    public ResponseEntity<String> saveUserFavorite(@PathVariable Long userId,
+            @RequestBody UserFavorites userFavorites) {
+        try {
+        	 favoritesService.saveUserFavorite(userId, userFavorites);
+             return new ResponseEntity<>("Favorite saved successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 	
 }

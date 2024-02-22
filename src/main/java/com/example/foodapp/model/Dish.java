@@ -124,5 +124,21 @@ public class Dish {
 	public void setMood(Mood mood) {
 		this.mood = mood;
 	}
+
+	public Set<Recipes> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(Set<Recipes> recipes) {
+		this.recipes = recipes;
+	}
+
+	public Set<UserFavorites> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(Set<UserFavorites> favorites) {
+		this.favorites = favorites;
+	}
     
 }

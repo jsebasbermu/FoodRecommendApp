@@ -41,7 +41,6 @@ public class MoodController {
 			if (moods.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-
 			return new ResponseEntity<>(moods, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,10 +51,8 @@ public class MoodController {
     public ResponseEntity<Mood> getMoodsByMoodId(@PathVariable("id") Long id) {
         Optional<Mood> moods = moodRepository.findById(id);
         if(moods.isPresent()) {
-			// Status okay is the course is found
 			return new ResponseEntity<>(moods.get(), HttpStatus.OK);
 		}
-		// status no content if it is not found the course.
 		return new ResponseEntity<>(moods.get(), HttpStatus.NO_CONTENT);
     }
 	
