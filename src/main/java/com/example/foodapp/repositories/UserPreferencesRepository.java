@@ -9,5 +9,4 @@ import com.example.foodapp.model.UserPreferences;
 
 public interface UserPreferencesRepository extends JpaRepository<UserPreferences, Long>{
 
-	List<UserPreferences> findByUserPreferenceId(String userPreferenceId);
 }

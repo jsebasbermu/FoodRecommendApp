@@ -41,20 +41,5 @@ public class UserPreferencesController {
 	}
 	
 	
-	
-	/*@Autowired
-    private UserPreferences userPreference;
-	
-	@GetMapping("/preferences/{userPreferenceId}/cuisine")
-	public ResponseEntity<Set<UserPreferences>> getCuisineByPreference(@PathVariable long userPreferenceId){
-		try {
-            Set<UserPreferences> userPref = userPreference.getUserPreferences();
-            return new ResponseEntity<>(userPref, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-		
-	}*/
+
 }

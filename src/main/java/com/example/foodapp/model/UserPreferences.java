@@ -33,18 +33,10 @@ public class UserPreferences {
 	@JoinColumn(name = "cuisine_id", nullable = false)
 	private Cuisine cuisine;
 
-	@JsonIgnore
-	private Set<UserPreferences> userPreferences = new HashSet<>();
 	
 	
 	
-	public Set<UserPreferences> getUserPreferences() {
-		return userPreferences;
-	}
 
-	public void setUserPreferences(Set<UserPreferences> userPreferences) {
-		this.userPreferences = userPreferences;
-	}
 
 	// Default Constructor
 	public UserPreferences() {
