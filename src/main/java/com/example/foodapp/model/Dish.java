@@ -62,6 +62,17 @@ public class Dish {
 		this.ingredients = ingredients;
 		this.imageURL = imageURL;
 	}
+	
+	// Additional constructor with cuisine and mood
+	public Dish(String dishName, String description, String ingredients, String imageURL, Cuisine cuisine, Mood mood) {
+		super();
+		this.dishName = dishName;
+		this.description = description;
+		this.ingredients = ingredients;
+		this.imageURL = imageURL;
+		this.cuisine = cuisine;
+		this.mood = mood;
+	}
 
 	public void addRecipe(Recipes recipes1) {
 		this.recipes.add(recipes1);
