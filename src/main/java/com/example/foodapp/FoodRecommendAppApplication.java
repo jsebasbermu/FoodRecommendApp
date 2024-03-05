@@ -212,7 +212,7 @@ public class FoodRecommendAppApplication {
 			moods.get(4).addDish(dishes.get(4));
 			moods.get(5).addDish(dishes.get(5));
 			moods.get(6).addDish(dishes.get(6));
-			moods.get(7).addDish(dishes.get(6));
+			moods.get(7).addDish(dishes.get(7));
 			
 			// Adding a mood to each of the user preferences
 			
@@ -240,7 +240,7 @@ public class FoodRecommendAppApplication {
 			// List of recipes
 			
 			ArrayList<Recipes> recipes = new ArrayList<>();
-			recipes.add(new Recipes("Bibibamp instructions"));
+			recipes.add(new Recipes("Bibimbap instructions"));
 			recipes.add(new Recipes("Pad Thai instructions"));
 			recipes.add(new Recipes("Pho instructions"));
 			recipes.add(new Recipes("Sushi instructions"));
@@ -251,12 +251,12 @@ public class FoodRecommendAppApplication {
 			// Adding a dish to each of the recipes
 			
 			dishes.get(0).addRecipe(recipes.get(0));
-			dishes.get(1).addRecipe(recipes.get(1));
-			dishes.get(2).addRecipe(recipes.get(2));
-			dishes.get(3).addRecipe(recipes.get(3));
-			dishes.get(4).addRecipe(recipes.get(4));
-			dishes.get(5).addRecipe(recipes.get(5));
-			dishes.get(6).addRecipe(recipes.get(6));
+			dishes.get(8).addRecipe(recipes.get(1));
+			dishes.get(16).addRecipe(recipes.get(2));
+			dishes.get(24).addRecipe(recipes.get(3));
+			dishes.get(32).addRecipe(recipes.get(4));
+			dishes.get(40).addRecipe(recipes.get(5));
+			dishes.get(48).addRecipe(recipes.get(6));
 
 			recipesRepository.saveAll(recipes);
 			
