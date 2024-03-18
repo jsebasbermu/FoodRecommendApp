@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import UserLogin from "../components/UserLogin.vue";
+import UserDashboard from "../components/UserDashboard.vue";
 
 const routes = [
     {
@@ -7,6 +8,12 @@ const routes = [
         alias: "/login",
         name: "userLogin",
         component: UserLogin
+    },
+    {
+        path: "/",
+        alias: "/userDashboard",
+        name: "userDashboard",
+        component: UserDashboard
     }
 ];
 
