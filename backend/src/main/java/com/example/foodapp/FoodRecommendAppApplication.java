@@ -99,7 +99,7 @@ public class FoodRecommendAppApplication {
 			// List of users
 			ArrayList<User> users = new ArrayList<>();
 			
-			User sebastian = new User("Sebastian Bermudez", "seb123456");
+			User sebastian = new User("Sebastian", "seb123456");
 			User russell = new User("Russell", "rus678_99");
 			User burak = new User("Burak", "burak12974_");
 			
