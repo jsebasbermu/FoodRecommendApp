@@ -8,13 +8,13 @@
             </div>
             <div class="form-group">
                 <label for="password">Password: </label>
-                <input type="password" id="password" v-model="userLoginRequest.password"/>
+                <input type="password" id="password" v-model="userLoginRequest.passWord"/>
             </div>
             <div>
                 <button type="submit" @click="login">Login</button>
             </div>
         </form>
-        <p>{{  message }}</p>
+        <p style="color: black;">{{ message }}</p>
         <p>Don't have an account? <router-link to="/userRegistration">Click here to sign up</router-link></p>
     </div>
 </template>
@@ -26,19 +26,23 @@ export default {
     name: "UserLogin",
     data() {
         return {
-            userLoginRequest: {userName: "", password: ""},
+            userLoginRequest: {userName: "", passWord: ""},
             message: ""
         }
     },
     methods: {
-        login() {
+        login(event) {
+          event.preventDefault();
             LoginService.login(this.userLoginRequest)
                 .then( response => {
                     let user = response.data;
+                    
                     console.log(user);
+                    this.message = response.data;
                 })
                 .catch(error => {
                     console.log(error.response.data);
+                    this.message = error.response.data;
                 })
         }
     },

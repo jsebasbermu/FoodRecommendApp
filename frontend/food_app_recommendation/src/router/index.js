@@ -14,29 +14,24 @@ const routes = [
         component: UserLogin
     },
     {
-        path: "/",
-        alias: "/userDashboard",
+        path: "/userDashboard",
         name: "userDashboard",
         component: UserDashboard
     },
     {
-        path: "/",
-        alias:"/userRegistration",
+        path: "/userRegistration",
         component: UserRegistration
     },
     {
-        path: "/",
-        alias:"/moodCuisineSelection",
+        path: "/moodCuisineSelection",
         component: MoodCuisineSelection
     },
     {
-        path: "/",
-        alias:"/recommendedDish",
+        path: "/recommendedDish",
         component: RecommendedDish
     },
     {
-        path: "/",
-        alias:"/feedbackSubmission",
+        path: "/feedbackSubmission",
         component: FeedbackSubmission
     },
 

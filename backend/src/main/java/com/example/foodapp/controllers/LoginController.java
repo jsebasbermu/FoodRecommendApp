@@ -19,29 +19,29 @@ import com.example.foodapp.response.MessageResponse;
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
-public class LoginController {
-	
-	@Autowired
-	UserRepository userRepository;
-	
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest){
-		try {
-			Optional<User> userData = userRepository.findByUserName(loginRequest.getUserName());
-			if (userData.isPresent()) {
-				String passWord = userData.get().getPassword();
-				if(passWord.equals(loginRequest.getPassWord())) {
-					return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+	public class LoginController {
+		
+		@Autowired
+		UserRepository userRepository;
+		
+		@PostMapping("/login")
+		public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest){
+			try {
+				Optional<User> userData = userRepository.findByUserName(loginRequest.getUserName());
+				if (userData.isPresent()) {
+					String passWord = userData.get().getPassword();
+					if(passWord.equals(loginRequest.getPassWord())) {
+						return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+					}
+					MessageResponse msg = new MessageResponse("Incorrect password");
+					return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
 				}
-				MessageResponse msg = new MessageResponse("Incorrect password");
+				MessageResponse msg = new MessageResponse("No such a student");
 				return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
+			} catch (Exception e) {
+				MessageResponse msg = new MessageResponse("Server Error");
+				return new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			MessageResponse msg = new MessageResponse("No such a student");
-			return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
-		} catch (Exception e) {
-			MessageResponse msg = new MessageResponse("Server Error");
-			return new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	
 	}
-
-}
