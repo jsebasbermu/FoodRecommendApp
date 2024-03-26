@@ -10,7 +10,7 @@
           <label for="password">Password</label>
           <input type="password" id="password" v-model="password" required>
         </div>
-        <button type="submit">Sign In</button>
+        <button type="submit">Sign Up</button>
       </form>
       <p>Already have an account? <a href="#" @click="goToLogin">Click to login</a></p>
     </div>

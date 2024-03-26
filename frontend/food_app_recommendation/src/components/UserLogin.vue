@@ -36,9 +36,9 @@ export default {
             LoginService.login(this.userLoginRequest)
                 .then( response => {
                     let user = response.data;
-                    
                     console.log(user);
                     this.message = response.data;
+                    this.$router.push({ name: "userDashboard" }); 
                 })
                 .catch(error => {
                     console.log(error.response.data);
