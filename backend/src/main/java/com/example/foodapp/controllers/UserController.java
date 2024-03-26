@@ -2,6 +2,7 @@ package com.example.foodapp.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,18 +31,33 @@ public class UserController {
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String userName) {
 		try {
-			List<User> users = new ArrayList<User>();
+//			List<User> users = new ArrayList<User>();
+//
+//			if (userName == null)
+//				userRepository.findAll().forEach(users::add);
+//			else //findBy
+//				userRepository.findByUserName(userName).forEach(users::add);
+//
+//			if (users.isEmpty()) {
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			}
+//
+//			return new ResponseEntity<>(users, HttpStatus.OK);
+			List<User> users = new ArrayList<>();
 
-			if (userName == null)
-				userRepository.findAll().forEach(users::add);
-			else //findBy
-				userRepository.findByUserName(userName).forEach(users::add);
+	        if (userName == null || userName.isEmpty()) {
+	            userRepository.findAll().forEach(users::add);
+	        } else {
+	            // Use findByUserName to filter users by username
+	            Optional<User> user = userRepository.findByUserName(userName);
+	            user.ifPresent(users::add);
+	        }
 
-			if (users.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
+	        if (users.isEmpty()) {
+	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	        }
 
-			return new ResponseEntity<>(users, HttpStatus.OK);
+	        return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
