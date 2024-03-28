@@ -37,6 +37,7 @@ export default {
                 .then( response => {
                     let user = response.data;
                     console.log(user);
+                    localStorage.setItem('userId', user.userId);
                     this.message = response.data;
                     this.$router.push({ name: "userDashboard" }); 
                 })

@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.foodapp.model.Mood;
+import com.example.foodapp.model.User;
 import com.example.foodapp.model.UserPreferences;
 
 public interface UserPreferencesRepository extends JpaRepository<UserPreferences, Long>{
+
+	List<UserPreferences> findByUser(User user);
+    List<UserPreferences> findByUserUserId(Long userId);
 
 }

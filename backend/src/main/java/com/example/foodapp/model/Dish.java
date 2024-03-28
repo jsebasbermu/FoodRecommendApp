@@ -48,6 +48,10 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
 	private Set<UserFavorites> favorites = new HashSet<>();
+   
+	 @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 @JsonIgnore
+	 private Set<UserPreferences> userPreferences = new HashSet<>();
     
     // Default Constructor
     public Dish() {
@@ -151,5 +155,18 @@ public class Dish {
 	public void setFavorites(Set<UserFavorites> favorites) {
 		this.favorites = favorites;
 	}
+	
+	public Set<UserPreferences> getUserPreferences() {
+		return userPreferences;
+	}
+	public void setUserPreferences(Set<UserPreferences> userPreferences) {
+		this.userPreferences = userPreferences;
+	}
+	
+	public void addUserPreference(UserPreferences preference) {
+		this.userPreferences.add(preference);
+		preference.setDish(this);
+	}
+
     
 }

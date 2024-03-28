@@ -2,6 +2,7 @@ package com.example.foodapp.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.foodapp.model.Cuisine;
 import com.example.foodapp.model.Dish;
+import com.example.foodapp.model.Mood;
 import com.example.foodapp.model.Recipes;
+import com.example.foodapp.model.User;
+import com.example.foodapp.repositories.CuisineRepository;
 import com.example.foodapp.repositories.DishRepository;
 import com.example.foodapp.repositories.DishService;
+import com.example.foodapp.repositories.MoodRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -53,5 +58,21 @@ public class DishController {
         Set<Recipes> recipe = dishService.getRecipeByDish(dishId);
         return ResponseEntity.ok(recipe);
     }
+    
+    @GetMapping("/dishes/{dishId}")
+	public ResponseEntity<Dish> getDishById(@PathVariable Long dishId) {
+	    try {
+	    	Optional<Dish> dishData = dishRepository.findById(dishId);
+
+	        if (dishData.isPresent()) {
+	            return new ResponseEntity<>(dishData.get(), HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+
 
 }

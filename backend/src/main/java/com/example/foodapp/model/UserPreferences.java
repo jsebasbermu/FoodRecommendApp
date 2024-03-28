@@ -33,8 +33,13 @@ public class UserPreferences {
 	@JoinColumn(name = "cuisine_id", nullable = false)
 	private Cuisine cuisine;
 
+//	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+//    @JoinColumn(name = "dish_id", nullable = false)
+//    private Dish dish;
 	
-	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "dish_id", nullable = false)
+	private Dish dish;
 	
 
 
@@ -81,6 +86,14 @@ public class UserPreferences {
 	public void setCuisine(Cuisine cuisine) {
 		this.cuisine = cuisine;
 	}
-	
+
+	public Dish getDish() {
+		return dish;
+	}
+
+	public void setDish(Dish dish) {
+		this.dish = dish;
+	}
+
 	
 }
