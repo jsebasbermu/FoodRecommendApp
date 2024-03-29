@@ -5,8 +5,15 @@ import UserRegistration from "../components/UserRegistration.vue";
 import MoodCuisineSelection from "../components/MoodCuisineSelection.vue";
 import FeedbackSubmission from "../components/FeedbackSubmission.vue";
 import RecommendedDish from "../components/RecommendedDish.vue";
+import HomePage from "../components/HomePage.vue";
 
 const routes = [
+    {
+        path: "/",
+        alias: "/home",
+        name: "HomePage",
+        component: HomePage
+    },
     {
         path: "/",
         alias: "/login",
