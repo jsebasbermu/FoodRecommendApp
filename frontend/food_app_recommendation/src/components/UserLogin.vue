@@ -59,8 +59,9 @@ export default {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 5px;
+  background-color: white;
 }
 .form-group {
   margin-bottom: 15px;

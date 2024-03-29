@@ -33,7 +33,7 @@
       </div>
 
       <div class="right-content">
-        <user-login></user-login>
+        <user-login class="child-component"></user-login>
       </div>
 
       
@@ -61,6 +61,7 @@
   .landing-page {
     display: flex;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #f0f2f0;
   }
   
   .left-content {
@@ -70,9 +71,13 @@
   }
   
   .right-content {
-    padding-top: 15%;
+    padding-top: 12%;
     padding-right: 25%;
     width: 500px;
+  }
+
+  .child-component {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Horizontal offset, Vertical offset, Blur radius, Spread radius, Color */
   }
 
   </style>
