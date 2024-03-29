@@ -1,38 +1,43 @@
-        <!-- <div>
-            <h2>Past Preferences</h2>
-            <table>
-            <thead>
-                <tr>
-                <th>Preference ID</th>
-                <th>User</th>
-                <th>Mood</th>
-                <th>Cuisine</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="preference in pastPreferences" :key="preference.userPreferencesId">
-                <td>{{ preference.userPreferencesId }}</td>
-                <td>{{ preference.user.name }}</td>
-                <td>{{ preference.mood.name }}</td>
-                <td>{{ preference.cuisine.name }}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div> -->
+
 <template>
-    <div>
+    <div class="user-dashboard">
         <div> <h1>Welcome to Your Dashboard, {{ userName }}</h1></div>
-        <div>
-            <h2>User Preferences</h2>
-            <ul>
-                <li v-for="preference in userPreferences" :key="preference.userPreferencesId">
-                    Mood: {{ preference.mood.moodName }}, Cuisine: {{ preference.cuisine.cuisineName }}
-                </li>
-            </ul>
+        <div class="button-group">
+            <router-link to="/moodCuisineSelection">
+                <button>Get Recommendation</button>
+            </router-link>
+            <button>View Records</button>
+            <button>Favorites</button>
+            <button>Search Dishes</button>
+            <router-link to="/" @click="logout">
+                <button>Logout</button>
+            </router-link>
+            
         </div>
-
-       
-
+        <div>
+            <h2>Your past activities</h2>
+            <!-- <ul>
+                <li v-for="preference in userPreferences" :key="preference.userPreferencesId">
+                    Dish: {{ preference.dish.dishName }}, Mood: {{ preference.mood.moodName }}, Cuisine: {{ preference.cuisine.cuisineName }}
+                </li>
+            </ul> -->
+            <table>
+                <thead>
+                    <tr>
+                    <th>Dish</th>
+                    <th>Mood</th>
+                    <th>Cuisine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="preference in userPreferences" :key="preference.userPreferencesId">
+                    <td>{{ preference.dish.dishName }}</td>
+                    <td>{{ preference.mood.moodName }}</td>
+                    <td>{{ preference.cuisine.cuisineName }}</td>
+                    </tr>
+                </tbody>
+                </table>
+        </div>
     </div>
 </template>
 
@@ -76,6 +81,11 @@ export default {
                 .catch(error => {
                     console.error('Error fetching user preferences:', error);
                 });
+        },
+        logout(event){
+            event.preventDefault();
+            // Remove student ID from localStorage
+            localStorage.removeItem('userId');
         }
     },
     mounted(){
@@ -87,5 +97,50 @@ export default {
 </script>
 
 <style>
+.user-dashboard{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 2%;
+    padding-left: 20%;
+    padding-right: 20%;
+}
 
+/* table style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Optional: Adjust spacing */
+  }
+
+  th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f2f2f2;
+  }
+
+  /* button group style */
+  .button-group {
+  display: flex;
+  justify-content: left;
+}
+
+.button-group button {
+  margin: 0 5px; /* Adjust margin as needed */
+  min-width: 150px;
+  min-height: 30px;
+  width: auto;
+  height: auto;
+}
 </style>
