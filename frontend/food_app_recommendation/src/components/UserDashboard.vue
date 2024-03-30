@@ -1,18 +1,20 @@
-
 <template>
     <div class="user-dashboard">
-        <div> <h1>Welcome to Your Dashboard, {{ userName }}</h1></div>
+        <div>
+            <h1>Welcome to Your Dashboard, {{ userName }}</h1>
+        </div>
         <div class="button-group">
             <router-link to="/moodCuisineSelection">
-                <button>Get Recommendation</button>
+                <button>Get Recommendations</button>
             </router-link>
             <button>View Records</button>
             <button>Favorites</button>
             <button>Search Dishes</button>
+
             <router-link to="/" @click="logout">
                 <button>Logout</button>
             </router-link>
-            
+
         </div>
         <div>
             <h2>Your past activities</h2>
@@ -24,19 +26,19 @@
             <table>
                 <thead>
                     <tr>
-                    <th>Dish</th>
-                    <th>Mood</th>
-                    <th>Cuisine</th>
+                        <th>Dish</th>
+                        <th>Mood</th>
+                        <th>Cuisine</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="preference in userPreferences" :key="preference.userPreferencesId">
-                    <td>{{ preference.dish.dishName }}</td>
-                    <td>{{ preference.mood.moodName }}</td>
-                    <td>{{ preference.cuisine.cuisineName }}</td>
+                        <td>{{ preference.dish.dishName }}</td>
+                        <td>{{ preference.mood.moodName }}</td>
+                        <td>{{ preference.cuisine.cuisineName }}</td>
                     </tr>
                 </tbody>
-                </table>
+            </table>
         </div>
     </div>
 </template>
@@ -48,29 +50,29 @@ import UserPreferenceService from '@/services/UserPreferenceService';
 
 export default {
     name: "UserDashboard",
-    data(){
+    data() {
         return {
             userName: '',
             userPreferences: []
         };
     },
-    methods:{
-        getUserInfo(){
+    methods: {
+        getUserInfo() {
             let userId = localStorage.getItem('userId');
             if (userId) {
-            // Make API call to fetch user details
-            LoginService.getUserDetails(userId)
-                .then(response => {
-                    // Extract user name from response data
-                    this.userName = response.data.userName;
-                    this.getUserPreferences(userId);
-                })
-                .catch(error => {
-                    console.error('Error fetching user details:', error);
-                });
-        } else {
-            console.error('User ID not found in local storage');
-        }
+                // Make API call to fetch user details
+                LoginService.getUserDetails(userId)
+                    .then(response => {
+                        // Extract user name from response data
+                        this.userName = response.data.userName;
+                        this.getUserPreferences(userId);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user details:', error);
+                    });
+            } else {
+                console.error('User ID not found in local storage');
+            }
         },
         getUserPreferences(userId) {
             UserPreferenceService.getUserPreferencesByUserId(userId)
@@ -82,22 +84,22 @@ export default {
                     console.error('Error fetching user preferences:', error);
                 });
         },
-        logout(event){
+        logout(event) {
             event.preventDefault();
             // Remove student ID from localStorage
             localStorage.removeItem('userId');
         }
     },
-    mounted(){
+    mounted() {
         this.getUserInfo();
-        
+
     }
 }
 
 </script>
 
 <style>
-.user-dashboard{
+.user-dashboard {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding-top: 2%;
     padding-left: 20%;
@@ -108,39 +110,42 @@ export default {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px; /* Optional: Adjust spacing */
-  }
+    margin-bottom: 20px;
+    /* Optional: Adjust spacing */
+}
 
-  th, td {
+th,
+td {
     border: 1px solid #dddddd;
     padding: 8px;
     text-align: left;
-  }
+}
 
-  th {
+th {
     background-color: #f2f2f2;
     font-weight: bold;
-  }
+}
 
-  tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #f9f9f9;
-  }
+}
 
-  tr:hover {
+tr:hover {
     background-color: #f2f2f2;
-  }
+}
 
-  /* button group style */
-  .button-group {
-  display: flex;
-  justify-content: left;
+/* button group style */
+.button-group {
+    display: flex;
+    justify-content: left;
 }
 
 .button-group button {
-  margin: 0 5px; /* Adjust margin as needed */
-  min-width: 150px;
-  min-height: 30px;
-  width: auto;
-  height: auto;
+    margin: 0 5px;
+    /* Adjust margin as needed */
+    min-width: 150px;
+    min-height: 30px;
+    width: auto;
+    height: auto;
 }
 </style>

@@ -7,6 +7,7 @@ import FeedbackSubmission from "../components/FeedbackSubmission.vue";
 import RecommendedDish from "../components/RecommendedDish.vue";
 import HomePage from "../components/HomePage.vue";
 import FavoriteFood from "../components/FavoriteFood.vue";
+import DishesList from "../components/DishesList.vue";
 
 const routes = [
     {
@@ -16,8 +17,7 @@ const routes = [
         component: HomePage
     },
     {
-        path: "/",
-        alias: "/login",
+        path: "/login",
         name: "userLogin",
         component: UserLogin
     },
@@ -46,6 +46,10 @@ const routes = [
         path: "/favoritefood",
         component: FavoriteFood
     },
+    {
+        path:"/dishesList",
+        component: DishesList
+    }
 
 ];
 
