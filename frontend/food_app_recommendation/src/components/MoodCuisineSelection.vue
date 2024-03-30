@@ -3,13 +3,13 @@
       <h2>Mood & Cuisine Selection</h2>
       <div class="form-group">
         <label for="mood">Mood:</label>
-        <select id="mood">
+        <select v-model="selectedMood" id="mood">
           <option v-for="mood in moodsList" :key="mood.moodId" :value="mood.moodId">{{ mood.moodName }}</option>
         </select>
       </div>
       <div class="form-group">
         <label for="cuisine">Cuisine:</label>
-        <select id="cuisine">
+        <select  v-model="selectedCuisine" id="cuisine">
           <option v-for="cuisine in cuisinesList" :key="cuisine.cuisineId" :value="cuisine.cuisineId">{{ cuisine.cuisineName }}</option>
         </select>
       </div>
@@ -24,7 +24,9 @@
     data() {
       return {
         moodsList: [],
-        cuisinesList: []
+        cuisinesList: [],
+        selectedMood: "",
+        selectedCuisine: ""
       };
     },
     methods: {
@@ -49,8 +51,14 @@
         });
       },
       goToRecommendation() {
-        this.$router.push('/dishesList');
-      }
+      this.$router.push({ 
+      name: 'dishesList', 
+      params: { 
+      moodId: this.selectedMood.toString(), 
+      cuisineId: this.selectedCuisine.toString() 
+      } 
+  });
+}
     },
     mounted(){
         this.getMoods(); 

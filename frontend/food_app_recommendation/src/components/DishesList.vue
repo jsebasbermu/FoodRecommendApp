@@ -26,15 +26,27 @@
 </template>
 <script>
 export default {
+    name: 'dishesList',
     data() {
         return {
             dish: {
                 imageUrl: 'https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_500,q_50,w_1900/hellofresh_s3/image/HF_Y24_R07_W08_ES_ESQFC18619-2_edit_zuccini_Main_R_high-137f2c4e.jpg',
                 name: 'Name of the dish', // Get name here
                 description: '', // Get description here
-
             }
         };
+    },
+
+    methods:{
+
+    },
+
+    mounted(){
+        const moodId = this.$route.params.moodId;
+        const cuisineId = this.$route.params.cuisineId;
+
+        console.log("Mood ID:", moodId);
+        console.log("Cuisine ID:", cuisineId);
     }
 
 };

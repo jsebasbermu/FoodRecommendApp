@@ -49,7 +49,12 @@ const routes = [
     {
         path:"/dishesList",
         component: DishesList
-    }
+    },
+    {
+        path:"/dishesList/:moodId/:cuisineId",
+        name: "dishesList",
+        component: DishesList
+    }    
 
 ];
 
