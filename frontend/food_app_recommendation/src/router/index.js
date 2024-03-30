@@ -6,6 +6,7 @@ import MoodCuisineSelection from "../components/MoodCuisineSelection.vue";
 import FeedbackSubmission from "../components/FeedbackSubmission.vue";
 import RecommendedDish from "../components/RecommendedDish.vue";
 import HomePage from "../components/HomePage.vue";
+import FavoriteFood from "../components/FavoriteFood.vue";
 
 const routes = [
     {
@@ -40,6 +41,10 @@ const routes = [
     {
         path: "/feedbackSubmission",
         component: FeedbackSubmission
+    },
+    {
+        path: "/favoritefood",
+        component: FavoriteFood
     },
 
 ];

@@ -1,33 +1,130 @@
 <template>
-    <div>
-        <h1>Favorite Food</h1>
+   
+        <div>
+            <h1>Favorite Food</h1>
 
-    </div>
-    <div>
+        </div>
+        <div>
 
-        <label for="food-list">Please choose the food you want to save from below</label>
+            <label for="food-list">Please choose the food you want to save from below</label>
+            <br><br>
+
+            <select name="favoriteFood" id="food-list" v-model="selectedDish">
+                <option v-for="dish in dishes" :key="dish.dishName" :value="dish.dishName">
+                    {{ dish.dishName }}
+                </option>
+
+            </select>
+            <br><br>
+
+
+        </div>
         <br><br>
 
-        <select name="favoriteFood" id="food-list">
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-        </select>
-        <br><br>
-
-
-    </div>
-    <br><br>
-
-    <div>
-        <button type="submit">Save</button>
-    </div>
+        <div class="button-container">
+            <button type="submit" @click="saveFavoriteFood">Save</button>
+            <button type="submit" @click="clearFavoriteFoods">Clear Food List</button>
+        </div>
+    
 </template>
 
 <script>
+import FavoriteFoodService from "../services/FavoriteFoodService";
+
+export default {
+    name: "FavoriteFood",
+    data() {
+        return {
+            dishes: null,
+            selectedDish: null,
+        }
+    },
+    methods: {
+        clearFavoriteFoods(event) {
+            event.preventDefault();
+
+            localStorage.removeItem('favoriteFoods');
+            alert("Food list removed ");
+        },
+
+        saveFavoriteFood() {
+            let favoriteFoods = localStorage.getItem('favoriteFoods')
+
+            if (!favoriteFoods) {
+                favoriteFoods = [];
+            } else {
+                favoriteFoods = JSON.parse(favoriteFoods);
+            }
+            favoriteFoods.push(this.selectedDish);
+            localStorage.setItem('favoriteFoods', JSON.stringify(favoriteFoods));
+            console.log(localStorage.getItem('favoriteFoods'));
+            alert("Food added to the Favorite List");
+        },
+
+        allDishes() {
+
+            FavoriteFoodService.getAllDishes()
+                .then(response => {
+                    this.dishes = response.data;
+                    console.log(this.dishes);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+
+
+    },
+    mounted() {
+
+        this.allDishes();
+
+    },
+
+}
 
 </script>
 
-<style></style>
+
+<style>
+
+
+button {
+   padding: 10px 20px;
+    width: 10%;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    width: 200px;
+}
+
+select option:hover {
+    background-color: #f2f2f2;
+}
+
+
+
+
+</style>
