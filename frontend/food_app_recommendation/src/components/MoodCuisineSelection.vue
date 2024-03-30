@@ -1,4 +1,3 @@
-@ -1,67 +1,80 @@
 <template>
     <div class="mood-cuisine-selection">
       <h2>Mood & Cuisine Selection</h2>
