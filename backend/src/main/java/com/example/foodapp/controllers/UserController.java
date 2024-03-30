@@ -78,5 +78,16 @@ public class UserController {
 	    }
 	}
 	
+	@PostMapping("/users")
+    public ResponseEntity<String> createUserFavorite(@RequestBody User newUser) {
+        try {
+            // Save the new favorite
+            userRepository.save(newUser);
+            return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+	
 	
 }
