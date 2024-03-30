@@ -1,6 +1,6 @@
 <template>
     <div class="dish-list">
-        <div>
+        <!-- <div>
             <h1>Recommended List of dishes</h1>
         </div>
         <div class="list">
@@ -17,6 +17,23 @@
                 </router-link>
             </div>
 
+        </div> -->
+
+        <div class="test-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dish</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="dish in dishList" :key="dish.dishId">
+                        <td>{{ dish.dishName }}</td>
+                        <td>{{ dish.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
 
@@ -25,27 +42,49 @@
     </div>
 </template>
 <script>
+import DishListService from '@/services/DishListService';
 export default {
     name: 'dishesList',
     data() {
         return {
-            dish: {
-                imageUrl: 'https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_500,q_50,w_1900/hellofresh_s3/image/HF_Y24_R07_W08_ES_ESQFC18619-2_edit_zuccini_Main_R_high-137f2c4e.jpg',
-                name: 'Name of the dish', // Get name here
-                description: '', // Get description here
-            }
+            // dish: {
+            //     imageUrl: 'https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_500,q_50,w_1900/hellofresh_s3/image/HF_Y24_R07_W08_ES_ESQFC18619-2_edit_zuccini_Main_R_high-137f2c4e.jpg',
+            //     name: 'Name of the dish', // Get name here
+            //     description: '', // Get description here
+            // }
+            moodId: 0,
+            dishList: [],
         };
     },
 
     methods:{
-
+        getDishesFromMood(){
+            const moodId = this.$route.params.moodId;
+            DishListService.getDishesFromMood(moodId)
+                .then(response => {
+                    this.dishList = response.data;
+                    console.log(this.dishList)
+                })
+                .catch(error => {
+                    console.error("Error fetching dishes:", error);
+                })
+        }
+        // getUserPreferences(userId) {
+        //     UserPreferenceService.getUserPreferencesByUserId(userId)
+        //         .then(response => {
+        //             this.userPreferences = response.data;
+        //             console.log(response.data);
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching user preferences:', error);
+        //         });
+        // },
     },
 
     mounted(){
-        const moodId = this.$route.params.moodId;
+        
         const cuisineId = this.$route.params.cuisineId;
-
-        console.log("Mood ID:", moodId);
+        this.getDishesFromMood();
         console.log("Cuisine ID:", cuisineId);
     }
 
