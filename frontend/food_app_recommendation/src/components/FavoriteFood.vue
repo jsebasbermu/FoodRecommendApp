@@ -25,6 +25,13 @@
             <button type="submit" @click="saveFavoriteFood">Save</button>
             <button type="submit" @click="clearFavoriteFoods">Clear Food List</button>
         </div>
+
+        <div>
+        <h1>Favorite Foods</h1>
+        <ul>
+            <li v-for="(food, index) in favoriteFoods" :key="index">{{ food }}</li>
+        </ul>
+    </div>
     
 </template>
 
@@ -35,6 +42,7 @@ export default {
     name: "FavoriteFood",
     data() {
         return {
+            favoriteFoods: [],
             dishes: null,
             selectedDish: null,
         }
@@ -45,6 +53,7 @@ export default {
 
             localStorage.removeItem('favoriteFoods');
             alert("Food list removed ");
+            
         },
 
         saveFavoriteFood() {
@@ -59,6 +68,11 @@ export default {
             localStorage.setItem('favoriteFoods', JSON.stringify(favoriteFoods));
             console.log(localStorage.getItem('favoriteFoods'));
             alert("Food added to the Favorite List");
+            const storedFoods = localStorage.getItem("favoriteFoods");
+            if (storedFoods) {
+                this.favoriteFoods = JSON.parse(storedFoods);
+            }
+
         },
 
         allDishes() {
@@ -72,12 +86,19 @@ export default {
                     console.log(error);
                 })
         },
+        loadFavoriteFoods() {
+            const storedFoods = localStorage.getItem("favoriteFoods");
+            if (storedFoods) {
+                this.favoriteFoods = JSON.parse(storedFoods);
+            }
+        },
 
 
     },
     mounted() {
 
         this.allDishes();
+        this.loadFavoriteFoods();
 
     },
 
