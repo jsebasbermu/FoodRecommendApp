@@ -4,7 +4,7 @@
       <img :src="dish.imageUrl" alt="Dish Image" />
     </div>
     <div class="dish-details">
-      <h2>{{ dish.name }}</h2>
+      <h2>Name</h2>
       <div>
         <h3>Description:</h3>
         <p>{{ dish.description }}</p>
@@ -24,6 +24,9 @@
 
 <script>
 export default {
+
+  name: "recommendedDish",
+
   data() {
     return {
       dish: {
@@ -31,9 +34,21 @@ export default {
         name: 'Name of the dish', // Get name here
         description: '', // Get description here
         ingredients: '', // Get ingredients here
-        instructions: '' // Get instructions from backend
+        instructions: '', // Get instructions from backend
+        selectedId: "",
       }
     };
+  },
+  methods: {
+
+
+
+  },
+  mounted() {
+
+    const selectedId = this.$route.params.selectedId;
+    console.log("dish ID: ", selectedId);
+
   }
 
 };

@@ -14,14 +14,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="dish in dishList" :key="dish.dishId">
+                    <tr v-for="dish in dishList" :key="dish.dishId" :id="dish.dishId">
 
                         <td>{{ dish.dishName }}</td>
                         <td>{{ dish.description }}</td>
                         <td>
-                            <router-link to="/RecommendedDish">
-                                <button>See recipe</button>
-                            </router-link>
+                            <button @click="goToShowDetails(dish.dishId)">See recipe</button>
                         </td>
                     </tr>
                     <tr v-for="dish in dishList2" :key="dish.dishId">
@@ -29,9 +27,9 @@
                         <td>{{ dish.dishName }}</td>
                         <td>{{ dish.description }}</td>
                         <td>
-                            <router-link to="/RecommendedDish">
-                                <button>See recipe</button>
-                            </router-link>
+
+                            <button @click="goToShowDetails(dish.dishId)">See recipe</button>
+
                         </td>
 
                     </tr>
@@ -49,17 +47,17 @@
 </template>
 <script>
 import DishListService from '@/services/DishListService';
+
 export default {
+
     name: 'dishesList',
     data() {
         return {
-            dish: {
-                imageUrl: 'https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_500,q_50,w_1900/hellofresh_s3/image/HF_Y24_R07_W08_ES_ESQFC18619-2_edit_zuccini_Main_R_high-137f2c4e.jpg'
 
-            },
             moodId: 0,
             dishList: [],
             dishList2: [],
+            selectedDish: "",
 
         };
     },
@@ -71,6 +69,7 @@ export default {
             DishListService.getDishesFromMood(moodId)
                 .then(response => {
                     this.dishList = response.data;
+
                     console.log(this.dishList);
                 })
                 .catch(error => {
@@ -91,21 +90,27 @@ export default {
 
 
         },
+        goToShowDetails(Dish) {
+            this.$router.push({
+                name: 'recommendedDish',
+                params: {
+                    selectedDish: Dish.toString()
+                }
+            });
 
-
-
-
+        }
 
     },
     mounted() {
 
         const moodId = this.$route.params.moodId;
         const cuisineId = this.$route.params.cuisineId;
+
+
         this.getDishesFromMood();
         this.getDishesFromCuisin();
         console.log("Cuisine ID:", cuisineId);
         console.log("Mood ID:", moodId);
-
 
     }
 
