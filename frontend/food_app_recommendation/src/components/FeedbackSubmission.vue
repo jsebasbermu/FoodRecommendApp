@@ -4,15 +4,14 @@
     </div>
     <div>
 
-        <label for="food-list">Please choose the food you want to comment from below</label>
+        <label for="food-list">Please choose the food you want to comment</label>
         <br><br>
 
-        <select name="food" id="food-list">
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
-            <option value="">{{ }}</option>
+        <select name="favoriteFood" id="food-list" v-model="feedbackUser.dish">
+            <option v-for="dish in dishes" :key="dish.dishName" :value="dish.dishName">
+                {{ dish.dishName }}
+            </option>
+
         </select>
         <br><br>
         <label for="feedback1">Overall how much did you like our recommendation ?</label>
@@ -20,19 +19,19 @@
         <form id="feedback1">
             <div class="radio-group">
                 <label for="rating1">1
-                    <input type="radio" id="rating1" name="rating" value="1">
+                    <input type="radio" id="rating1" name="rating" value="1" v-model="feedbackUser.feedback1">
                 </label>
                 <label for="rating2">2
-                    <input type="radio" id="rating2" name="rating" value="2">
+                    <input type="radio" id="rating2" name="rating" value="2" v-model="feedbackUser.feedback1">
                 </label>
                 <label for="rating3">3
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating3" name="rating" value="3" v-model="feedbackUser.feedback1">
                 </label>
                 <label for="rating4">4
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating4" name="rating" value="4" v-model="feedbackUser.feedback1">
                 </label>
                 <label for="rating5">5
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating5" name="rating" value="5" v-model="feedbackUser.feedback1">
                 </label>
 
             </div>
@@ -43,19 +42,19 @@
         <form id="feedback2">
             <div class="radio-group">
                 <label for="rating1">1
-                    <input type="radio" id="rating1" name="rating" value="1">
+                    <input type="radio" id="rating1" name="rating" value="1" v-model="feedbackUser.feedback2">
                 </label>
                 <label for="rating2">2
-                    <input type="radio" id="rating2" name="rating" value="2">
+                    <input type="radio" id="rating2" name="rating" value="2" v-model="feedbackUser.feedback2">
                 </label>
                 <label for="rating3">3
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating3" name="rating" value="3" v-model="feedbackUser.feedback2">
                 </label>
                 <label for="rating4">4
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating4" name="rating" value="4" v-model="feedbackUser.feedback2">
                 </label>
                 <label for="rating5">5
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating5" name="rating" value="5" v-model="feedbackUser.feedback2">
                 </label>
 
             </div>
@@ -66,19 +65,19 @@
         <form id="feedback3">
             <div class="radio-group">
                 <label for="rating1">1
-                    <input type="radio" id="rating1" name="rating" value="1">
+                    <input type="radio" id="rating1" name="rating" value="1" v-model="feedbackUser.feedback3">
                 </label>
                 <label for="rating2">2
-                    <input type="radio" id="rating2" name="rating" value="2">
+                    <input type="radio" id="rating2" name="rating" value="2" v-model="feedbackUser.feedback3">
                 </label>
                 <label for="rating3">3
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating3" name="rating" value="3" v-model="feedbackUser.feedback3">
                 </label>
                 <label for="rating4">4
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating4" name="rating" value="4" v-model="feedbackUser.feedback3">
                 </label>
                 <label for="rating5">5
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating5" name="rating" value="5" v-model="feedbackUser.feedback3">
                 </label>
 
             </div>
@@ -89,20 +88,19 @@
         <form id="feedback4">
             <div class="radio-group">
                 <label for="rating1">1
-                    <input type="radio" id="rating1" name="rating" value="1">
+                    <input type="radio" id="rating1" name="rating" value="1" v-model="feedbackUser.feedback4">
                 </label>
                 <label for="rating2">2
-                    <input type="radio" id="rOverall how much do you like our recommendationating2" name="rating"
-                        value="2">
+                    <input type="radio" id="rating2" name="rating" value="2" v-model="feedbackUser.feedback4">
                 </label>
                 <label for="rating3">3
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating3" name="rating" value="3" v-model="feedbackUser.feedback4">
                 </label>
                 <label for="rating4">4
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating4" name="rating" value="4" v-model="feedbackUser.feedback4">
                 </label>
                 <label for="rating5">5
-                    <input type="radio" id="rating3" name="rating" value="3">
+                    <input type="radio" id="rating5" name="rating" value="5" v-model="feedbackUser.feedback4">
                 </label>
 
             </div>
@@ -112,20 +110,79 @@
 
         <form id="commentBox">
             <label for="commentBox">Please write your thoughts below</label> <br>
-            <textarea id="commentBox" name="comment" rows="5" cols="50" placeholder="Write your thoughts here">
-
-        </textarea>
+            <textarea id="commentBox" name="comment" rows="5" cols="50" placeholder="Write your thoughts here"
+                v-model="feedbackUser.commentBox">
+            </textarea>
         </form>
 
     </div>
     <br><br>
 
     <div>
-        <button type="submit">Submit</button>
+        <button type="submit" @click="saveFeedback">Submit</button>
     </div>
 </template>
 
 <script>
+import FavoriteFoodService from "../services/FavoriteFoodService";
+import FeedBackService from "../services/FeedBackService";
+let user = localStorage.getItem('userId');
+export default {
+    name: "feedbackUser",
+
+    data() {
+        return {
+            dishes: null,
+
+            feedbackUser: {
+                user, dish: null, feedback1: null, feedback2: null, feedback3: null, feedback4: null, commentBox: "",
+            },
+            message: ""
+
+
+        };
+
+    },
+    methods: {
+
+        saveFeedback(event) {
+            event.preventDefault();
+
+            FeedBackService.saveFeedback(this.feedbackUser)
+                .then(response => {
+                    let feedbackUser = response.data;
+                    console.log(feedbackUser);
+
+                    this.message = "Feedback saved!";
+
+                })
+                .catch(error => {
+                    console.log(error.response.data);
+                    this.message = error.response.data;
+                })
+        },
+
+        allDishes() {
+
+            FavoriteFoodService.getAllDishes()
+                .then(response => {
+                    this.dishes = response.data;
+                    console.log(this.dishes);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+
+
+    },
+    mounted() {
+
+        this.allDishes();
+
+    },
+
+};
 
 </script>
 
