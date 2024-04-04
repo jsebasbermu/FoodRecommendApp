@@ -33,8 +33,8 @@ public class Dish {
 	@Column(name = "imageURL")
     private String imageURL;
     
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "mood_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "mood_id", referencedColumnName = "moodId", nullable = false)
     private Mood mood;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

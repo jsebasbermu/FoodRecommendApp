@@ -26,5 +26,12 @@ public class DishService {
         Optional<Dish> dish = dishRepository.findById(dishId);
         return dish.map(Dish::getRecipes).orElse(null);
     }
+    public List<Dish> getDishesByMoodAndCuisine(Long moodId, Long cuisineId) {
+        return dishRepository.findByMoodMoodIdAndCuisineCuisineId(moodId, cuisineId);
+    }
+    
+    public List<Dish> getDishesByMoodAndCuisine(Mood mood, Cuisine cuisine) {
+        return dishRepository.findByMoodAndCuisine(mood, cuisine);
+    }
 
 }

@@ -34,23 +34,30 @@ public class DishController {
 	DishRepository dishRepository;
 	
 	@GetMapping("/dishes")
-	public ResponseEntity<List<Dish>> getAllDishes(@RequestParam(required = false) String dishName) {
-		try {
-			List<Dish> dishes = new ArrayList<Dish>();
+	public ResponseEntity<List<Dish>> getDishesByMoodAndCuisine(
+	    @RequestParam(required = false) Long moodId,
+	    @RequestParam(required = false) Long cuisineId
+	) {
+	    try {
+	        List<Dish> dishes = new ArrayList<>();
 
-			if (dishName == null)
-				dishRepository.findAll().forEach(dishes::add);
-			else //findBy
-				dishRepository.findByDishName(dishName).forEach(dishes::add);
+	        if (moodId != null && cuisineId != null) {
+	            // Fetch dishes based on moodId and cuisineId
+	            dishes = dishService.getDishesByMoodAndCuisine(moodId, cuisineId);
+	        } else {
+	            // If moodId and cuisineId are not specified, return all dishes
+	            dishRepository.findAll().forEach(dishes::add);
+	        }
 
-			if (dishes.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(dishes, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	        if (dishes.isEmpty()) {
+	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	        }
+	        return new ResponseEntity<>(dishes, HttpStatus.OK);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
+
 	
 	@Autowired
     private DishService dishService;
@@ -75,6 +82,8 @@ public class DishController {
 	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
+    
+    
 
 
 }
