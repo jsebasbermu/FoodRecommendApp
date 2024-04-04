@@ -1,5 +1,7 @@
 <template>
+  
   <div class="mood-cuisine-selection">
+    <router-link to="/userDashboard" class="btn-dashboard">Back to User Dashboard</router-link>
     <h2>Mood & Cuisine Selection</h2>
     <div class="form-group">
       <label for="mood">Mood:</label>
@@ -104,5 +106,19 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+/* Styles for the button */
+.btn-dashboard {
+  display: block;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 </style>

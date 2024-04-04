@@ -1,5 +1,7 @@
 <template>
+    
     <div class="dish-list">
+        <router-link to="/userDashboard" class="btn-dashboard">Back to User Dashboard</router-link>
         <h1>Recommended List of Dishes</h1>
         <p>Here's a recommended list of dishes for you!</p>
         <div class="test-table">
@@ -8,7 +10,6 @@
                     <tr>
                         <th>Image</th>
                         <th>Dish</th>
-                        <th>Description</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -16,7 +17,7 @@
                     <tr v-for="dish in dishes" :key="dish.dishId">
                         <td>{{ dish.dishName }}</td>
                         <td>{{ dish.description }}</td>
-                        <td>
+                        <td class="button-cell">
                             <button @click="saveUserPreference(dish)">See recipe</button>
                         </td>
                     </tr>
@@ -87,8 +88,6 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
 .dish-list {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -120,4 +119,31 @@ button {
     cursor: pointer;
     width: 20vh;
 }
+
+/* Styles for the button */
+.btn-dashboard {
+  display: block;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Styling for the button cell */
+.button-cell {
+  border: none;
+  text-align: center;
+}
+
+/* Styling for the table header */
+.test-table th:nth-child(3) {
+  border: none;
+  background-color: white;
+}
 </style>
+

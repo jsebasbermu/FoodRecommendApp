@@ -1,5 +1,7 @@
 <template>
+  
   <div class="dish-recommended">
+    <router-link to="/userDashboard" class="btn-dashboard">Back to User Dashboard</router-link>
     <div class="dish-image">
       <img :src="dish.imageUrl" alt="Dish Image" />
     </div>
@@ -96,5 +98,19 @@ button.add-to-favorites-btn {
 button.add-to-favorites-btn:hover {
   background-color: #cc0000;
   /* Rojo oscuro al pasar el ratón */
+}
+
+/* Styles for the button */
+.btn-dashboard {
+  display: block;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 </style>
