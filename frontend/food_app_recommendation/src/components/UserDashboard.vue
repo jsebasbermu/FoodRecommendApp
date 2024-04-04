@@ -8,11 +8,17 @@
                 <button>Get Recommendations</button>
             </router-link>
             <button>View Records</button>
-            <button>Favorites</button>
+            <router-link to="/favoritefood">
+                <button>Favorites</button>
+            </router-link>
+            
             <button>Search Dishes</button>
 
             <router-link to="/" @click="logout">
                 <button>Logout</button>
+            </router-link>
+            <router-link to="/feedbackSubmission">
+                <button>Feedback</button>
             </router-link>
 
         </div>
