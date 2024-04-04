@@ -5,7 +5,10 @@ class DishListService {
         return http.get(`/moods/${moodId}/dishes`);
     }
     getDishesFromCuisine(cuisineId){
-        return http.get(`/cuisines/${cuisineId}/dishes`)
+        return http.get(`/cuisines/${cuisineId}/dishes`);
+    }
+    getDishesByMoodAndCuisine(moodId, cuisineId) {
+        return http.get(`/dishes?moodId=${moodId}&cuisineId=${cuisineId}`);
     }
 }
 
