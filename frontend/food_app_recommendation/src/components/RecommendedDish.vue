@@ -4,7 +4,7 @@
       <img :src="dish.imageUrl" alt="Dish Image" />
     </div>
     <div class="dish-details">
-      <h2>Name</h2>
+      <h2>{{ dish.name }}</h2>
       <div>
         <h3>Description:</h3>
         <p>{{ dish.description }}</p>
@@ -23,36 +23,41 @@
 </template>
 
 <script>
+import DishListService from '@/services/DishListService';
+
 export default {
-
   name: "recommendedDish",
-
   data() {
     return {
       dish: {
         imageUrl: 'https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_500,q_50,w_1900/hellofresh_s3/image/HF_Y24_R07_W08_ES_ESQFC18619-2_edit_zuccini_Main_R_high-137f2c4e.jpg',
-        name: 'Name of the dish', // Get name here
-        description: '', // Get description here
-        ingredients: '', // Get ingredients here
-        instructions: '', // Get instructions from backend
-        selectedId: "",
+        name: 'Name of the dish',
+        description: '',
+        ingredients: '',
+        instructions: ''
       }
     };
   },
   methods: {
-
-
-
+    fetchDishDetails(selectedId) {
+      DishListService.getDishById(selectedId)
+        .then(response => {
+          this.dish = response.data;
+          console.log("Fetched dish details:", this.dish);
+        })
+        .catch(error => {
+          console.error("Error fetching dish details:", error);
+        });
+    }
   },
   mounted() {
-
     const selectedId = this.$route.params.selectedId;
     console.log("dish ID: ", selectedId);
-
+    this.fetchDishDetails(selectedId);
   }
-
 };
 </script>
+
 
 <style scoped>
 .dish-recommended {

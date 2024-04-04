@@ -10,6 +10,9 @@ class DishListService {
     getDishesByMoodAndCuisine(moodId, cuisineId) {
         return http.get(`/dishes?moodId=${moodId}&cuisineId=${cuisineId}`);
     }
+    getDishById(dishId) {
+        return http.get(`/dishes/${dishId}`);
+    }
 }
 
 export default new DishListService();

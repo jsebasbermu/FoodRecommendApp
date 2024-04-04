@@ -73,7 +73,7 @@ export default {
                     // Navigate to recommended dish route after saving user preference
                     this.$router.push({
                         name: 'recommendedDish',
-                        params: { selectedDish: dishId.toString() }
+                        params: { selectedId: dishId.toString() }
                     });
                 })
                 .catch(error => {

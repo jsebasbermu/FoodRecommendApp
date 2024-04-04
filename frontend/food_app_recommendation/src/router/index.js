@@ -4,7 +4,7 @@ import UserDashboard from "../components/UserDashboard.vue";
 import UserRegistration from "../components/UserRegistration.vue";
 import MoodCuisineSelection from "../components/MoodCuisineSelection.vue";
 import FeedbackSubmission from "../components/FeedbackSubmission.vue";
-import RecommendedDish from "../components/RecommendedDish.vue";
+import RecommendedDishComponent from "../components/RecommendedDish.vue";
 import HomePage from "../components/HomePage.vue";
 import FavoriteFood from "../components/FavoriteFood.vue";
 import DishesList from "../components/DishesList.vue";
@@ -35,9 +35,10 @@ const routes = [
         component: MoodCuisineSelection
     },
     {
-        path: "/recommendedDish",
-        component: RecommendedDish
-    },
+        path: '/recommendedDish/:selectedId',
+        name: 'recommendedDish',
+        component: RecommendedDishComponent
+      },
     {
         path: "/feedbackSubmission",
         component: FeedbackSubmission
