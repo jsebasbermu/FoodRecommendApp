@@ -17,7 +17,7 @@
                         <td>{{ dish.dishName }}</td>
                         <td>{{ dish.description }}</td>
                         <td>
-                            <button @click="goToShowDetails(dish.dishId)">See recipe</button>
+                            <button @click="saveUserPreference(dish)">See recipe</button>
                         </td>
                     </tr>
                 </tbody>
@@ -29,6 +29,7 @@
 
 <script>
 import DishListService from '@/services/DishListService';
+import UserPreferenceService from '@/services/UserPreferenceService';
 
 export default {
     name: 'dishesList',
@@ -51,18 +52,42 @@ export default {
                     console.error("Error fetching dishes:", error);
                 });
         },
-        goToShowDetails(dishId) {
-            this.$router.push({
-                name: 'recommendedDish',
-                params: { selectedDish: dishId.toString() }
-            });
+        saveUserPreference(dish) {
+            const userId = localStorage.getItem('userId');
+            const moodId = this.$route.params.moodId;
+            const cuisineId = this.$route.params.cuisineId;
+            const dishId = dish.dishId;
+
+            const userPreferenceData = {
+                user: { userId: parseInt(userId) },
+                mood: { moodId: parseInt(moodId) },
+                cuisine: { cuisineId: parseInt(cuisineId) },
+                dish: { dishId: parseInt(dishId) }
+            };
+
+            console.log("User Preference Data:", userPreferenceData);
+
+            UserPreferenceService.saveUserPreference(userPreferenceData)
+                .then(response => {
+                    console.log("User preference saved:", response.data);
+                    // Navigate to recommended dish route after saving user preference
+                    this.$router.push({
+                        name: 'recommendedDish',
+                        params: { selectedDish: dishId.toString() }
+                    });
+                })
+                .catch(error => {
+                    console.error("Error saving user preference:", error);
+                });
         }
-    },
+},
     mounted() {
         this.getDishes();
     }
 };
 </script>
+
+
 
 <style scoped>
 .dish-list {

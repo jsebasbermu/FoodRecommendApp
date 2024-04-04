@@ -8,6 +8,11 @@ class UserPreferenceService {
     getUserPreferencesByUserId(userId) {
         return http.get(`/users/${userId}/userPreferences`);
     }
+
+    saveUserPreference(userPreferenceData) {
+        return http.post('/userpreferences', userPreferenceData);
+    }
+    
 }
 
 export default new UserPreferenceService();
