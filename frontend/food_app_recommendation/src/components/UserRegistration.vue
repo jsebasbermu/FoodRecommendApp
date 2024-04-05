@@ -1,20 +1,36 @@
 <template>
-    <div class="user-registration">
-      <h2>User Registration</h2>
-      <form @submit.prevent="submitForm">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" v-model="userRegistrationRequest.userName" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model="userRegistrationRequest.password" required>
-        </div>
-        <button type="submit" @click="register">Sign Up</button>
-      </form>
-      <p>Already have an account? <a href="#" @click="goToLogin">Click to login</a></p>
-    </div>
-  </template>
+  <div class="user-registration">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="company-logo">
+        <img src="../assets/companylogo.png" alt="Company Logo">
+      </div>
+      <h2 class="app-name">MoodPlate</h2>
+    </header>
+    <!-- Back to Home Button -->
+    <router-link to="/" class="btn-back">Back to Home</router-link>
+
+    <!-- Registration Form -->
+    <h2>User Registration</h2>
+    <form @submit.prevent="submitForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" v-model="userRegistrationRequest.userName" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model="userRegistrationRequest.password" required>
+      </div>
+      <button type="submit" @click="register">Sign Up</button>
+    </form>
+
+
+
+    <!-- Login Link -->
+    <p>Already have an account? <router-link to="/" class="login-link">Click to login</router-link></p>
+  </div>
+</template>
+
   
   <script>
   import RegistrationService from "../services/RegistrationService";
@@ -48,43 +64,78 @@
   </script>
   
   <style scoped>
-  .user-registration {
-    max-width: 400px;
-    margin: 0 auto;
+.user-registration {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  .form-group {
-    margin-bottom: 15px;
-  }
-  label {
-    display: block;
-    font-weight: bold;
-  }
-  input[type="text"],
-  input[type="password"] {
-  width: 100%; 
-  padding: 10px;
-  font-size: 16px;
-  box-sizing: border-box; 
+    font-family: 'Inter', sans-serif;
 }
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    width: 100%;
-    background-color: #007bff;
-    color: #fff;
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.company-logo img {
+    max-width: 30%;
+    height: auto;
+}
+
+.app-name {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.user-registration h2 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #444444;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: 200;
+    color: #444444;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: #ff0303;
+    color: #FFFFFF;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-  }
-  button:hover {
-    background-color: #0056b3;
-  }
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  </style>
-  
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #D1D1D1;
+}
+
+p {
+    font-weight: 100;
+    color: #555555;
+}
+
+.login-link {
+    color: #31BD2E;
+    font-weight: 600;
+}
+</style>

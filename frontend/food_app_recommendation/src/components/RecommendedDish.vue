@@ -1,42 +1,65 @@
 <template>
-  
-  <div class="dish-recommended">
-    <router-link to="/userDashboard" class="btn-dashboard">Back to User Dashboard</router-link>
-    <div class="dish-image">
-      <img :src="dish.imageUrl" alt="Dish Image" />
-    </div>
-    <div class="dish-details">
-      <h2>{{ dish.name }}</h2>
-      <div>
-        <h3>Description:</h3>
-        <p>{{ dish.description }}</p>
+  <div class="dish-list">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="company-logo">
+        <img src="../assets/companylogo.png" alt="Company Logo">
       </div>
-      <div>
-        <h3>Ingredients:</h3>
-        <p>{{ dish.ingredients }}</p>
+      <h2 class="app-name">MoodPlate</h2>
+    </header>
+
+    <!-- Back to Dashboard Button -->
+    <router-link to="/userDashboard" class="btn-dashboard">&#8249; Back to User Dashboard</router-link>
+
+    <!-- Dish Details -->
+    <div class="dish-recommended">
+      <div v-if="dish">
+        <div class="dish-image">
+          <img :src="dish.imageURL" alt="Dish Image" />
+        </div>
+        <div class="dish-details">
+          <h2>{{ dish.dishName }}</h2>
+          <div>
+            <h3>Description:</h3>
+            <p>{{ dish.description }}</p>
+          </div>
+          <div>
+            <h3>Ingredients:</h3>
+            <p>{{ dish.ingredients }}</p>
+          </div>
+          <div v-if="dish.instructions">
+            <h3>Instructions:</h3>
+            <p>{{ dish.instructions }}</p>
+          </div>
+          <div v-else>
+            <h3>Instructions:</h3>
+            <p>Loading...</p>
+          </div>
+          <button @click="addToFavorites" class="add-to-favorites-btn">Add to favorites</button>
+        </div>
       </div>
-      <div>
-        <h3>Instructions:</h3>
-        <p>{{ dish.instructions }}</p>
+      <div v-else>
+        <p>Loading...</p>
       </div>
-      <button class="add-to-favorites-btn">Add to favorites</button>
     </div>
   </div>
 </template>
 
+
 <script>
-import DishListService from '@/services/DishListService';
+import FavoriteFoodService from "@/services/FavoriteFoodService";
+import DishListService from "@/services/DishListService";
 
 export default {
-  name: "recommendedDish",
+  name: "RecommendedDish",
   data() {
     return {
       dish: {
-        imageUrl: 'https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_500,q_50,w_1900/hellofresh_s3/image/HF_Y24_R07_W08_ES_ESQFC18619-2_edit_zuccini_Main_R_high-137f2c4e.jpg',
-        name: 'Name of the dish',
-        description: '',
-        ingredients: '',
-        instructions: ''
+        imageURL: "",
+        name: "",
+        description: "",
+        ingredients: "",
+        instructions: ""
       }
     };
   },
@@ -45,72 +68,115 @@ export default {
       DishListService.getDishById(selectedId)
         .then(response => {
           this.dish = response.data;
-          console.log("Fetched dish details:", this.dish);
+          this.fetchInstructions(selectedId); // Fetch instructions after fetching dish details
         })
         .catch(error => {
           console.error("Error fetching dish details:", error);
+          this.dish = null;
         });
+    },
+    fetchInstructions(dishId) {
+      DishListService.getRecipesByDish(dishId)
+        .then(response => {
+          this.dish.instructions = response.data.instructions;
+        })
+        .catch(error => {
+          console.error("Error fetching dish instructions:", error);
+          this.dish.instructions = "Instructions not available";
+        });
+    },
+    addToFavorites() {
+      FavoriteFoodService.addToFavorites(this.dish.dishName);
+      console.log("Dish added to favorites:", this.dish);
+      // Optionally, you can add a message or update UI to indicate the dish was added to favorites
+
+      // Redirect user to "/favoritefood"
+      this.$router.push("/favoritefood");
     }
   },
   mounted() {
     const selectedId = this.$route.params.selectedId;
-    console.log("dish ID: ", selectedId);
+    console.log("Dish ID: ", selectedId);
     this.fetchDishDetails(selectedId);
   }
 };
 </script>
 
-
 <style scoped>
-.dish-recommended {
+.dish-list {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.header {
+  text-align: center;
   margin-bottom: 20px;
 }
 
+.company-logo img {
+  max-width: 30%;
+  height: auto;
+}
+
+.app-name {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.btn-dashboard {
+  margin-bottom: 20px;
+}
+
+.dish-recommended {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .dish-image img {
-  height: 100vh;
-  /* Ocupa todo el alto de la pantalla */
-  width: 45vw;
-  /* Ancho automático */
+  max-width: 100%;
+  height: auto;
 }
 
 .dish-details {
-  flex: 1;
-  padding: 20px;
-}
-
-h2 {
-  margin-top: 0;
-}
-
-button.add-to-favorites-btn {
-  background-color: #ff0000;
-  /* Rojo */
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button.add-to-favorites-btn:hover {
-  background-color: #cc0000;
-  /* Rojo oscuro al pasar el ratón */
-}
-
-/* Styles for the button */
-.btn-dashboard {
-  display: block;
   margin-top: 20px;
-  background-color: #007bff;
-  color: #fff;
+}
+
+.dish-details h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.dish-details h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.dish-details p {
+  font-size: 16px;
+  color: #555555;
+}
+
+.add-to-favorites-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  background-color: #ff0303;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  text-decoration: none;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.add-to-favorites-btn:hover {
+  background-color: #D1D1D1;
 }
 </style>

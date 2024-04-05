@@ -1,41 +1,42 @@
 <template>
     <div class="favFood">
-        <div>
-            <h1>Favorite Food</h1>
-
+      <!-- Header Section -->
+      <header class="header">
+        <div class="company-logo">
+          <img src="../assets/companylogo.png" alt="Company Logo">
         </div>
-        <div>
+        <h2 class="app-name">MoodPlate</h2>
+      </header>
+  
+    <!-- Back to Dashboard Button -->
+    <router-link to="/userDashboard" class="btn-dashboard">&#8249; Back to User Dashboard</router-link>
 
-            <label for="food-list">Please choose the food you want to save from below</label>
-            <br><br>
-
-            <select name="favoriteFood" id="food-list" v-model="selectedDish">
-                <option v-for="dish in dishes" :key="dish.dishName" :value="dish.dishName">
-                    {{ dish.dishName }}
-                </option>
-
-            </select>
-            <br><br>
-
-
-        </div>
+      <!-- Main Content -->
+      <div>
+        <h1>Favorite Food</h1>
+      </div>
+      <div>
+        <label for="food-list">Please choose the food you want to save from below</label>
         <br><br>
-
-        <div class="button-container">
-            <button type="submit" @click="saveFavoriteFood">Save</button>
-            <button type="submit" @click="clearFavoriteFoods">Clear Food List</button>
-        </div>
-
-        <div>
-            <h1>Favorite Foods</h1>
-            <ul>
-                <li v-for="(food, index) in favoriteFoods" :key="index">{{ food }}</li>
-            </ul>
-        </div>
+        <select name="favoriteFood" id="food-list" v-model="selectedDish">
+          <option v-for="dish in dishes" :key="dish.dishName" :value="dish.dishName">{{ dish.dishName }}</option>
+        </select>
+        <br><br>
+      </div>
+      <br><br>
+      <div class="button-container">
+        <button type="submit" @click="saveFavoriteFood">Save</button>
+        <button type="submit" @click="clearFavoriteFoods">Clear Food List</button>
+      </div>
+      <div>
+        <h1>Favorite Foods</h1>
+        <ul>
+          <li v-for="(food, index) in favoriteFoods" :key="index">{{ food }}</li>
+        </ul>
+      </div>
     </div>
-
-</template>
-
+  </template>
+  
 <script>
 import FavoriteFoodService from "../services/FavoriteFoodService";
 
@@ -53,7 +54,7 @@ export default {
             event.preventDefault();
 
             localStorage.removeItem('favoriteFoods');
-            alert("Food list removed ");
+            this.favoriteFoods = []; // Clear the favoriteFoods array in the component
 
         },
 
@@ -68,7 +69,6 @@ export default {
             favoriteFoods.push(this.selectedDish);
             localStorage.setItem('favoriteFoods', JSON.stringify(favoriteFoods));
             console.log(localStorage.getItem('favoriteFoods'));
-            alert("Food added to the Favorite List");
             const storedFoods = localStorage.getItem("favoriteFoods");
             if (storedFoods) {
                 this.favoriteFoods = JSON.parse(storedFoods);
@@ -108,47 +108,71 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+.favFood {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.header {
+    text-align: center; /* Align content center */
+    margin-bottom: 20px; /* Add spacing between the header and content */
+}
+
+.company-logo img {
+    max-width: 30%; /* Ensure the logo fits within the header */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.app-name {
+    font-size: 24px; /* Adjust font size */
+    margin-top: 10px; /* Add spacing between logo and app name */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add spacing above the button container */
+}
+
 button {
-    padding: 10px 20px;
-    
+    padding: 10px 20px; /* Add padding */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Add border radius */
+    background-color: #ff0303; /* Primary color */
+    color: #FFFFFF; /* White text */
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
+    font-weight: bold; /* Bold font weight */
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 10px; /* Add spacing between buttons */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #D1D1D1; /* Lighter gray on hover */
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 16px;
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
 }
 
-select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    width: 200px;
+ul li {
+    font-size: 16px; /* Adjust font size */
+    margin-bottom: 5px; /* Add spacing between list items */
 }
-
-select option:hover {
-    background-color: #f2f2f2;
-}
-.favFood {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  
+#food-list {
+  padding: 10px;
+  border: 1px solid #CCCCCC;
   border-radius: 5px;
-  background-color: white;
+  width: 100%; /* Adjust width as needed */
+  font-size: 16px;
+  color: #555555;
 }
 </style>

@@ -15,7 +15,7 @@
             </div>
         </form>
         <p style="color: black;">{{ message }}</p>
-        <p>Don't have an account? <router-link to="/userRegistration">Click here to sign up</router-link></p>
+        <p>Don't have an account? <router-link to="/userRegistration" class="signup-link">Click here to sign up</router-link></p>
     </div>
 </template>
 
@@ -56,43 +56,66 @@ export default {
 
 <style scoped>
 .user-login {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  /* border: 1px solid #ccc; */
-  border-radius: 5px;
-  background-color: white;
+    background-color: #FFFFFF;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
 }
+
+h2 {
+    font-weight: normal;
+    font-size: 24px;
+}
+
 .form-group {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
+
 label {
-  display: block;
-  font-weight: bold;
-  font-size: 16px;
+    font-weight: 200; /* Extra light */
+    color: #444444; /* Darker gray */
 }
+
 input[type="text"],
 input[type="password"] {
-  width: 100%; 
-  padding: 10px;
-  font-size: 16px;
-  box-sizing: border-box; 
+    width: calc(100% - 20px); /* Adjusting width for padding */
+    padding: 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 8px;
+    margin-top: 5px; /* Adjust margin-top */
+    margin-bottom: 5px; /* Adjust margin-bottom */
 }
+
 button {
-  padding: 10px 20px;
-  width: 100%;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #ff0303;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600; /* Semibold */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
 button:hover {
-  background-color: #0056b3;
+    background-color: #31BD2E;
 }
-router-link {
-  color: #007bff;
-  text-decoration: none;
+
+.message {
+    color: #333333; /* Darker gray */
+    font-weight: 300; /* Regular */
+}
+
+p {
+    font-weight: 100; /* Extra light */
+    color: #555555; /* Darker gray */
+}
+
+.router-link-exact-active {
+    color: #31BD2E;
+}
+
+.signup-link {
+    color: #31BD2E;
+    font-weight: 600; /* Semibold */
 }
 </style>

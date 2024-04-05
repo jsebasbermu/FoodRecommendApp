@@ -13,6 +13,10 @@ class DishListService {
     getDishById(dishId) {
         return http.get(`/dishes/${dishId}`);
     }
+    getRecipesByDish(dishId) {
+        return http.get(`/dishes/${dishId}/recipes`);
+    }
+    
 }
 
 export default new DishListService();

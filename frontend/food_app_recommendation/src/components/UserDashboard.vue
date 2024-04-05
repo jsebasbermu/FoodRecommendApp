@@ -1,53 +1,60 @@
 <template>
     <div class="user-dashboard">
-        <div>
-            <h1>Welcome to Your Dashboard, {{ userName }}</h1>
+      <!-- Header Section -->
+      <header class="header">
+        <div class="company-logo">
+          <img src="../assets/companylogo.png" alt="Company Logo">
         </div>
-        <div class="button-group">
-            <router-link to="/moodCuisineSelection">
-                <button>Get Recommendations</button>
-            </router-link>
-            <button>View Records</button>
-            <router-link to="/favoritefood">
-                <button>Favorites</button>
-            </router-link>
-            
-            <button>Search Dishes</button>
+        <h2 class="app-name">MoodPlate</h2>
+      </header>
+  
+      <!-- Main Content -->
+      <div>
+        <h1>Welcome to Your Dashboard, {{ userName }}</h1>
+      </div>
+      <div class="button-group">
+        <router-link to="/moodCuisineSelection">
+          <button>Get Recommendations</button>
+        </router-link>
+        <router-link to="/favoritefood">
+          <button>Favorites</button>
+        </router-link>
+        <router-link to="/feedbackSubmission">
+          <button>Feedback</button>
+        </router-link>
+        <router-link to="/" @click="logout">
+          <button>Logout</button>
+        </router-link>
 
-            <router-link to="/" @click="logout">
-                <button>Logout</button>
-            </router-link>
-            <router-link to="/feedbackSubmission">
-                <button>Feedback</button>
-            </router-link>
+      </div>
+      <div>
+  <div v-if="userPreferences.length === 0">
+    <h2>You don't have any past activities.</h2>
+  </div>
+  <div v-else>
+    <h2>Your past activities</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Dish</th>
+          <th>Mood</th>
+          <th>Cuisine</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="preference in userPreferences" :key="preference.userPreferencesId">
+          <td>{{ preference.dish.dishName }}</td>
+          <td>{{ preference.mood.moodName }}</td>
+          <td>{{ preference.cuisine.cuisineName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-        </div>
-        <div>
-            <h2>Your past activities</h2>
-            <!-- <ul>
-                <li v-for="preference in userPreferences" :key="preference.userPreferencesId">
-                    Dish: {{ preference.dish.dishName }}, Mood: {{ preference.mood.moodName }}, Cuisine: {{ preference.cuisine.cuisineName }}
-                </li>
-            </ul> -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dish</th>
-                        <th>Mood</th>
-                        <th>Cuisine</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="preference in userPreferences" :key="preference.userPreferencesId">
-                        <td>{{ preference.dish.dishName }}</td>
-                        <td>{{ preference.mood.moodName }}</td>
-                        <td>{{ preference.cuisine.cuisineName }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
-</template>
+  </template>
+  
 
 <script>
 import LoginService from '@/services/LoginService';
@@ -104,54 +111,97 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+
 .user-dashboard {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding-top: 2%;
-    padding-left: 20%;
-    padding-right: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+.header {
+    text-align: center; /* Align content center */
+    margin-bottom: 20px; /* Add spacing between the header and content */
 }
 
-/* table style */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    /* Optional: Adjust spacing */
+.company-logo img {
+    max-width: 30%; /* Ensure the logo fits within the header */
+    height: auto; /* Maintain aspect ratio */
 }
 
-th,
-td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: left;
+.app-name {
+    font-size: 24px; /* Adjust font size */
+    margin-top: 10px; /* Add spacing between logo and app name */
 }
 
-th {
-    background-color: #f2f2f2;
+.user-dashboard h1 {
+    font-size: 36px;
     font-weight: bold;
+    color: #444444; /* Darker gray */
+    margin-bottom: 20px; /* Add spacing below */
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f2f2f2;
-}
-
-/* button group style */
 .button-group {
     display: flex;
-    justify-content: left;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px; /* Add spacing below */
 }
 
 .button-group button {
-    margin: 0 5px;
-    /* Adjust margin as needed */
-    min-width: 150px;
-    min-height: 30px;
-    width: auto;
-    height: auto;
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff0303; /* Primary color */
+    color: #FFFFFF; /* White text */
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600; /* Bold */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.button-group button:hover {
+    background-color: #D1D1D1; /* Lighter gray on hover */
+}
+
+.user-dashboard h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #444444; /* Darker gray */
+    margin-top: 20px; /* Add spacing above */
+    margin-bottom: 10px; /* Add spacing below */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #D1D1D1; /* Light gray border */
+}
+
+thead {
+    background-color: #D1D1D1; /* Light gray background for header */
+}
+
+thead th {
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444444; /* Darker gray */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #F5F5F5; /* Alternate row background color */
+}
+
+tbody td {
+    padding: 10px;
+    font-size: 16px;
+    color: #444444; /* Darker gray */
+}
+
 </style>

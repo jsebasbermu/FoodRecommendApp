@@ -1,5 +1,18 @@
 <template>
     <div class="feedback">
+         <!-- Header Section -->
+    <header class="header">
+      <div class="company-logo">
+        <img src="../assets/companylogo.png" alt="Company Logo">
+      </div>
+      <h2 class="app-name">MoodPlate</h2>
+    </header>
+
+    <!-- Back to Dashboard Button -->
+    <router-link to="/userDashboard" class="btn-dashboard">&#8249; Back to User Dashboard</router-link>
+
+        <!-- Main Content -->
+
         <div>
             <h1>Feedback Survey</h1>
         </div>
@@ -157,11 +170,13 @@ export default {
                     console.log(feedbackUser);
 
                     this.message = "Feedback saved!";
-
+                    window.alert('Feedback saved!');
+                    this.$router.push('/userDashboard');
                 })
                 .catch(error => {
                     console.log(error.response.data);
                     this.message = error.response.data;
+                    
                 })
         },
 
@@ -189,49 +204,77 @@ export default {
 
 </script>
 
-<style>
-button {
-    padding: 10px 20px;
-
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    width: 200px;
-}
-
-select option:hover {
-    background-color: #f2f2f2;
-}
-
+<style scoped>
+/* CSS styles for FeedbackSurvey component */
 .feedback {
-    max-width: 500px;
-    margin: 10px;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
 }
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.company-logo img {
+  max-width: 30%;
+  height: auto;
+}
+
+.app-name {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.btn-dashboard {
+  margin-bottom: 20px;
+}
+
+#food-list {
+  padding: 10px;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+  width: 300px;
+  font-size: 16px;
+  color: #555555;
+}
+
 .radio-group {
-    display: flex;
-    align-items: center; 
-    justify-content: start;
-    gap: 25px; 
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.radio-group label {
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff0303;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #D1D1D1;
+}
+
+textarea {
+  padding: 10px;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+  color: #555555;
 }
 </style>
