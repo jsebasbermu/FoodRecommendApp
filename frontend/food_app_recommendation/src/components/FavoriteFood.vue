@@ -1,5 +1,5 @@
 <template>
-   
+    <div class="favFood">
         <div>
             <h1>Favorite Food</h1>
 
@@ -27,12 +27,13 @@
         </div>
 
         <div>
-        <h1>Favorite Foods</h1>
-        <ul>
-            <li v-for="(food, index) in favoriteFoods" :key="index">{{ food }}</li>
-        </ul>
+            <h1>Favorite Foods</h1>
+            <ul>
+                <li v-for="(food, index) in favoriteFoods" :key="index">{{ food }}</li>
+            </ul>
+        </div>
     </div>
-    
+
 </template>
 
 <script>
@@ -53,7 +54,7 @@ export default {
 
             localStorage.removeItem('favoriteFoods');
             alert("Food list removed ");
-            
+
         },
 
         saveFavoriteFood() {
@@ -108,11 +109,9 @@ export default {
 
 
 <style>
-
-
 button {
-   padding: 10px 20px;
-    width: 10%;
+    padding: 10px 20px;
+    
     font-size: 16px;
     background-color: #007bff;
     color: #fff;
@@ -144,8 +143,12 @@ select {
 select option:hover {
     background-color: #f2f2f2;
 }
-
-
-
-
+.favFood {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  
+  border-radius: 5px;
+  background-color: white;
+}
 </style>
