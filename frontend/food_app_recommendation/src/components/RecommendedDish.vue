@@ -76,15 +76,22 @@ export default {
         });
     },
     fetchInstructions(dishId) {
-      DishListService.getRecipesByDish(dishId)
-        .then(response => {
-          this.dish.instructions = response.data.instructions;
-        })
-        .catch(error => {
-          console.error("Error fetching dish instructions:", error);
-          this.dish.instructions = "Instructions not available";
-        });
-    },
+  DishListService.getRecipesByDish(dishId)
+    .then(response => {
+      // Check if the response data is not empty
+      if (response.data.length > 0) {
+        // Extract instructions from the first recipe object
+        this.dish.instructions = response.data[0].instructions;
+      } else {
+        this.dish.instructions = "Instructions not available";
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching dish instructions:", error);
+      this.dish.instructions = "Instructions not available";
+    });
+},
+
     addToFavorites() {
       FavoriteFoodService.addToFavorites(this.dish.dishName);
       console.log("Dish added to favorites:", this.dish);
