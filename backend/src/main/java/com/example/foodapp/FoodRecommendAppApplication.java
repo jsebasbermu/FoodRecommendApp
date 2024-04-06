@@ -150,7 +150,14 @@ public class FoodRecommendAppApplication {
 			// List of recipes
 			
 			ArrayList<Recipes> recipes = new ArrayList<>();
-			recipes.add(new Recipes("Bibimbap instructions"));
+			recipes.add(new Recipes("Cook rice.\r\n"
+					+ "Prepare vegetables (carrots, spinach, mushrooms).\r\n"
+					+ "Cook vegetables separately.\r\n"
+					+ "Cook ground beef with soy sauce and garlic.\r\n"
+					+ "Fry eggs.\r\n"
+					+ "Assemble: rice, vegetables, beef, egg.\r\n"
+					+ "Top with gochujang sauce.\r\n"
+					+ "Mix, serve. Enjoy!"));
 			recipes.add(new Recipes("Pad Thai instructions"));
 			recipes.add(new Recipes("Pho instructions"));
 			recipes.add(new Recipes("Sushi instructions"));
