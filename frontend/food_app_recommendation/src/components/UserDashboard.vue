@@ -16,6 +16,9 @@
         <router-link to="/moodCuisineSelection">
           <button>Get Recommendations</button>
         </router-link>
+        <router-link to="/searchDishes">
+          <button>Search</button>
+        </router-link>
         <router-link to="/favoritefood">
           <button>Favorites</button>
         </router-link>

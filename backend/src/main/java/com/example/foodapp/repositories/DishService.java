@@ -2,6 +2,7 @@ package com.example.foodapp.repositories;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,13 @@ public class DishService {
     
     public List<Dish> getDishesByMoodAndCuisine(Mood mood, Cuisine cuisine) {
         return dishRepository.findByMoodAndCuisine(mood, cuisine);
+    }
+    
+    public List<Dish> searchDishesByName(String dishName) {
+        List<Dish> allDishes = dishRepository.findAll();
+        return allDishes.stream()
+                .filter(dish -> dish.getDishName().toLowerCase().contains(dishName.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 }

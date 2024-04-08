@@ -57,7 +57,6 @@ public class DishController {
 	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
-
 	
 	@Autowired
     private DishService dishService;
@@ -83,7 +82,27 @@ public class DishController {
 	    }
 	}
     
-    
+    @GetMapping("/dishes/search")
+    public ResponseEntity<List<Dish>> searchDishesByName(@RequestParam(required = false) String dishName) {
+        try {
+            List<Dish> dishes = new ArrayList<>();
+
+            if (dishName != null) {
+                // Fetch dishes containing the given string in their name
+                dishes = dishService.searchDishesByName(dishName);
+            } else {
+                // If dishName is not specified, return all dishes
+                dishRepository.findAll().forEach(dishes::add);
+            }
+
+            if (dishes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(dishes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

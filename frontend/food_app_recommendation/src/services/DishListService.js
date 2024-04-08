@@ -16,7 +16,9 @@ class DishListService {
     getRecipesByDish(dishId) {
         return http.get(`/dishes/${dishId}/recipes`);
     }
-    
+    searchDishesByName(dishName) {
+        return http.get(`/dishes/search?dishName=${dishName}`);
+    }
 }
 
 export default new DishListService();

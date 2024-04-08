@@ -8,6 +8,7 @@ import RecommendedDishComponent from "../components/RecommendedDish.vue";
 import HomePage from "../components/HomePage.vue";
 import FavoriteFood from "../components/FavoriteFood.vue";
 import DishesList from "../components/DishesList.vue";
+import SearchDishByName from "../components/SearchDishByName.vue";
 
 const routes = [
     {
@@ -55,7 +56,12 @@ const routes = [
         path:"/dishesList/:moodId/:cuisineId",
         name: "dishesList",
         component: DishesList
-    }    
+    },
+    {
+        path:"/searchDishes",
+        name: "SearchDish",
+        component: SearchDishByName
+    }       
 
 ];
 
